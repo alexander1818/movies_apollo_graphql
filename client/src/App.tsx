@@ -1,10 +1,8 @@
 import React from 'react';
 
-import { Box, Container, CssBaseline } from '@mui/material';
+import { Container, CssBaseline } from '@mui/material';
 import Navigation from './components/navigation';
-import { BrowserRouter, Outlet, Route, Routes } from 'react-router-dom';
-import Settings from './pages/settings';
-import Home from './pages/home';
+import { BrowserRouter } from 'react-router-dom';
 import InternalRouter from './router/Router';
 
 function App() {
@@ -14,20 +12,6 @@ function App() {
       <Navigation />
       <Container maxWidth="xl">
         <InternalRouter />
-
-        <Box>
-          <Outlet />
-        </Box>
-        {/*<Routes>*/}
-        {/*  <Route path="/" element={<Home />} />*/}
-        {/*  /!*<Route index element={<Home />} />*!/*/}
-        {/*  <Route path="settings" element={<Settings />}>*/}
-        {/*    /!*<Route path=":teamId" element={<Team />} />*!/*/}
-        {/*    /!*<Route path="new" element={<NewTeamForm />} />*!/*/}
-        {/*    /!*<Route index element={<LeagueStandings />} />*!/*/}
-        {/*    /!*</Route>*!/*/}
-        {/*  </Route>*/}
-        {/*</Routes>*/}
       </Container>
     </BrowserRouter>
   );
