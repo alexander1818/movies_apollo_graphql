@@ -6,17 +6,26 @@ import { BrowserRouter } from 'react-router-dom';
 import InternalRouter from './router/Router';
 import { ContainerWrapper } from './styles';
 
+import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+
 function App() {
+  const client = new ApolloClient({
+    uri: 'http://localhost:4000/',
+    cache: new InMemoryCache(),
+  });
+
   return (
-    <BrowserRouter>
-      <CssBaseline />
-      <Navigation />
-      <ContainerWrapper>
-        <Container maxWidth="xl">
-          <InternalRouter />
-        </Container>
-      </ContainerWrapper>
-    </BrowserRouter>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <CssBaseline />
+        <Navigation />
+        <ContainerWrapper>
+          <Container maxWidth="xl">
+            <InternalRouter />
+          </Container>
+        </ContainerWrapper>
+      </BrowserRouter>
+    </ApolloProvider>
   );
 }
 
