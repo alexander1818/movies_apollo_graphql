@@ -1,38 +1,27 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { FC } from 'react';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { CardMenu } from '../MaterialUI/cardMenu/CardMenu';
 
 export type TMovieType = {
-  image: string;
+  id: number;
+  posterPath: string;
   title: string;
   description: string;
   releaseDate?: string;
 };
 
 type TMovieTypeProps = {
-  size?: string;
-  label?: string;
-  primary?: boolean;
   movie: TMovieType;
-  onCardSelect?: () => void;
+  onCardSelect: (movie: TMovieType) => void;
 };
 
 export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect }) => {
-  const handleAddMovie = () => {
-    console.log('Added');
+  const handleAddMovie = (movie: TMovieType) => {
+    onCardSelect(movie);
   };
 
   return (
-    <Card sx={{ maxWidth: 230, position: 'relative' }}>
+    <Card sx={{ position: 'relative' }}>
       {/*<CardHeader*/}
       {/*  avatar={*/}
       {/*    <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">*/}
@@ -48,9 +37,9 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect }) => {
       {/*  subheader="September 14, 2016"*/}
       {/*/>*/}
 
-      <CardMenu text={'Add'} onCardSelect={handleAddMovie} />
+      <CardMenu text={'Add'} onCardSelect={() => handleAddMovie(movie)} />
 
-      <CardMedia component="img" height="350" image={movie.image} alt={movie.title} />
+      <CardMedia component="img" height="350" image={movie.posterPath} alt={movie.title} />
 
       <CardContent>
         <Typography variant="h5" color="text.warning">

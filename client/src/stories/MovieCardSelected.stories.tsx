@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof MovieCardSelected> = (args: any) => (
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  movie: movies[0],
+  // movie: movies[0],
 };
 
 // export const Secondary = Template.bind({});

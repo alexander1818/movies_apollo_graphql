@@ -2,10 +2,6 @@ import { Box, Card, CardContent, CardMedia, IconButton, Typography } from '@mui/
 import React, { FC } from 'react';
 import { TMovieType } from '../movieCard';
 import { useTheme } from '@mui/material/styles';
-
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
 import { CardMenu } from '../MaterialUI/cardMenu/CardMenu';
 
 type TGenre = {
@@ -14,45 +10,35 @@ type TGenre = {
 };
 
 export type TMovieCardSelectedProps = {
-  movie: {
-    title: string;
-    description: string;
-    releaseDate: string;
-    image: string;
-    genre?: TGenre[];
-    runtime?: number;
-  };
-  onDelete: () => void;
+  movie: TMovieType;
+  onDelete: (movie: TMovieType) => void;
 };
 
 const MovieCardSelected: FC<TMovieCardSelectedProps> = ({ movie, onDelete }) => {
-  const theme = useTheme();
-
-  const handleDeleteMovie = () => {
-    // setAnchorEl(null);
-    console.log('Deleted');
+  const handleDeleteMovie = (movie: TMovieType) => {
+    onDelete(movie);
   };
   return (
-    <Card sx={{ display: 'flex' }}>
-      <CardMedia component="img" sx={{ width: 100 }} image={movie.image} alt={movie.title} />
+    <Card sx={{ display: 'flex', position: 'relative' }}>
+      <CardMedia component="img" sx={{ width: 100 }} image={movie.posterPath} alt={movie.title} />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="h5">
             {movie.title}
           </Typography>
-          {movie.genre?.length ? (
-            <Typography variant="subtitle1" color="text.secondary" component="div">
-              Genre: {movie.genre[0]?.name}
-            </Typography>
-          ) : null}
+          {/*{movie?.genre && movie?.genre?.length ? (*/}
+          {/*  <Typography variant="subtitle1" color="text.secondary" component="div">*/}
+          {/*    Genre: {movie.genre[0]?.name}*/}
+          {/*  </Typography>*/}
+          {/*) : null}*/}
           <Typography variant="subtitle1" color="text.secondary" component="div">
-            Time: {movie.runtime}
+            {/*Time: {movie.runtime}*/}
           </Typography>
           <Typography variant="subtitle1" color="text.secondary" component="div">
             {movie.releaseDate}
           </Typography>
         </CardContent>
-        <CardMenu text={'Delete'} onCardSelect={handleDeleteMovie} />
+        <CardMenu text={'Delete'} onCardSelect={() => handleDeleteMovie(movie)} />
         {/*<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>*/}
         {/*  <IconButton aria-label="previous">*/}
         {/*    {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}*/}
