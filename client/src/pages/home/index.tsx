@@ -1,12 +1,13 @@
 import React, { FC, useState } from 'react';
-import { Box, Grid, Pagination, Paper, styled } from '@mui/material';
-import { SeletctedMovie } from './styles';
+import { Box, Grid, Pagination, Paper, styled, Typography } from '@mui/material';
+import { SeletctedMovie, StickyBox } from './styles';
 import MovieCard, { TMovieType } from '../../components/movieCard';
 
 import { useQuery } from '@apollo/client';
 import { MOVIES_QUERY } from './queries';
-import { useMovies } from '../../hooks/useMovies';
+import { useMovies } from '../../hooks/useMovies/useMovies';
 import MovieCardSelected from '../../components/movieCardSelected';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 
 const Home = () => {
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
@@ -51,13 +52,26 @@ const Home = () => {
           </Box>
         </Grid>
         <Grid item xs={12} md={3}>
-          <Paper>
+          <StickyBox>
             <SeletctedMovie>
-              {selectedMovies.map((movie: TMovieType) => (
-                <MovieCardSelected key={movie.id} movie={movie} onDelete={deleteMovie} />
-              ))}
+              {!selectedMovies.length ? (
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  flexDirection="column"
+                  p={3}
+                >
+                  <LiveTvIcon />
+                  <Typography variant="body2">No selected movies</Typography>
+                </Box>
+              ) : (
+                selectedMovies.map((movie: TMovieType) => (
+                  <MovieCardSelected key={movie.id} movie={movie} onDelete={deleteMovie} />
+                ))
+              )}
             </SeletctedMovie>
-          </Paper>
+          </StickyBox>
         </Grid>
       </Grid>
     </Box>
