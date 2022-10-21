@@ -1,6 +1,7 @@
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import { CardMenu } from '../MaterialUI/cardMenu/CardMenu';
+import { AddMovieIcon, CardMenuWrapper } from './styles';
 
 export type TMovieType = {
   id: number;
@@ -37,10 +38,12 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect }) => {
       {/*  subheader="September 14, 2016"*/}
       {/*/>*/}
 
-      <CardMenu text={'Add'} onCardSelect={() => handleAddMovie(movie)} />
-
-      <CardMedia component="img" height="350" image={movie.posterPath} alt={movie.title} />
-
+      <Box sx={{ position: 'relative' }}>
+        <CardMedia component="img" height="350" image={movie.posterPath} alt={movie.title} />
+        <CardMenuWrapper>
+          <AddMovieIcon onClick={() => handleAddMovie(movie)} />
+        </CardMenuWrapper>
+      </Box>
       <CardContent>
         <Typography variant="h5" color="text.warning">
           {movie.title}

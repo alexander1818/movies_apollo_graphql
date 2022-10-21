@@ -3,6 +3,7 @@ import React, { FC } from 'react';
 import { TMovieType } from '../movieCard';
 import { useTheme } from '@mui/material/styles';
 import { CardMenu } from '../MaterialUI/cardMenu/CardMenu';
+import { DeleteMovieIcon } from './styles';
 
 type TGenre = {
   name: string;
@@ -19,11 +20,11 @@ const MovieCardSelected: FC<TMovieCardSelectedProps> = ({ movie, onDelete }) => 
     onDelete(movie);
   };
   return (
-    <Card sx={{ display: 'flex', position: 'relative' }}>
-      <CardMedia component="img" sx={{ width: 100 }} image={movie.posterPath} alt={movie.title} />
+    <Card sx={{ display: 'flex', position: 'relative', margin: 2 }}>
+      <CardMedia component="img" sx={{ width: 50 }} image={movie.posterPath} alt={movie.title} />
       <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Typography component="div" variant="h5">
+        <CardContent sx={{ flex: '1 0 auto', padding: 1 }}>
+          <Typography component="div" variant="body1">
             {movie.title}
           </Typography>
           {/*{movie?.genre && movie?.genre?.length ? (*/}
@@ -34,11 +35,13 @@ const MovieCardSelected: FC<TMovieCardSelectedProps> = ({ movie, onDelete }) => 
           <Typography variant="subtitle1" color="text.secondary" component="div">
             {/*Time: {movie.runtime}*/}
           </Typography>
-          <Typography variant="subtitle1" color="text.secondary" component="div">
+          <Typography variant="body2" color="text.secondary" component="div">
             {movie.releaseDate}
           </Typography>
         </CardContent>
-        <CardMenu text={'Delete'} onCardSelect={() => handleDeleteMovie(movie)} />
+        <DeleteMovieIcon onClick={() => handleDeleteMovie(movie)} />
+
+        {/*<CardMenu text={'Delete'} onCardSelect={() => handleDeleteMovie(movie)} />*/}
         {/*<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>*/}
         {/*  <IconButton aria-label="previous">*/}
         {/*    {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}*/}
