@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Box, Grid, Pagination, Paper, styled, Typography } from '@mui/material';
+import { Box, Button, Grid, Pagination, Paper, styled, Typography } from '@mui/material';
 import { SeletctedMovie, StickyBox } from './styles';
 import MovieCard, { TMovieType } from '../../components/movieCard';
 
@@ -8,14 +8,35 @@ import { MOVIES_QUERY } from './queries';
 import { useMovies } from '../../hooks/useMovies/useMovies';
 import MovieCardSelected from '../../components/movieCardSelected';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
+import SelectedMovieForm from '../../components/selectedMovieForm/SelectedMovieForm';
+import { toast } from 'react-toastify';
+import { Modal } from '../../components/MaterialUI/modal/Modal';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const Home = () => {
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
   const [page, setPage] = useState<number>(1);
+  const [link, setLink] = useState<string>('');
+  const [openModal, setOpenModal] = useState<boolean>(false);
   const { loading, error, data } = useQuery(MOVIES_QUERY, { variables: { page } });
 
   const paginationHandler = (event: React.ChangeEvent<unknown>, page: number) => {
     setPage(page);
+  };
+
+  const onSubmit = ({ selectedMoviesField }: any) => {
+    const ids = selectedMovies.map(({ id }) => id);
+    const link = `${
+      window.location.host
+    }/recommended?title=${selectedMoviesField}&ids=${ids.join()}`;
+    setLink(link);
+    setOpenModal(!openModal);
+    toast.dark('Link was created');
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setLink('');
   };
 
   if (error) {
@@ -71,8 +92,29 @@ const Home = () => {
                 ))
               )}
             </SeletctedMovie>
+            {selectedMovies.length ? <SelectedMovieForm onSubmit={onSubmit} /> : null}
           </StickyBox>
         </Grid>
+        <Modal
+          open={openModal}
+          title={'Recommended movies link'}
+          onClose={handleCloseModal}
+          maxWidth={'lg'}
+        >
+          <>
+            <Box>{link}</Box>
+            <Box mt={3} display="flex" justifyContent="space-evenly">
+              <Button variant="outlined" color={'warning'} onClick={handleCloseModal}>
+                Preview
+              </Button>
+              <CopyToClipboard text={link} onCopy={() => toast.dark('Copied')}>
+                <Button variant="outlined" color={'warning'} onClick={handleCloseModal}>
+                  Copy link and close modal
+                </Button>
+              </CopyToClipboard>
+            </Box>
+          </>
+        </Modal>
       </Grid>
     </Box>
   );
