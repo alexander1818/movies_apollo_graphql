@@ -1,5 +1,5 @@
 import React, { FC, useState } from 'react';
-import { Box, Button, Grid, Pagination, Paper, styled, Typography } from '@mui/material';
+import { Box, Button, Grid, IconButton, Pagination, Paper, Typography } from '@mui/material';
 import { SeletctedMovie, StickyBox } from './styles';
 import MovieCard, { TMovieType } from '../../components/movieCard';
 
@@ -12,6 +12,8 @@ import SelectedMovieForm from '../../components/selectedMovieForm/SelectedMovieF
 import { toast } from 'react-toastify';
 import { Modal } from '../../components/MaterialUI/modal/Modal';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Loader from '../../components/MaterialUI/loader/Loader';
+import { SocialShare } from '../../components/socialShare/SocialShare';
 
 const Home = () => {
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
@@ -53,13 +55,13 @@ const Home = () => {
           <Box mt={2}>
             <Paper>
               <Grid container spacing={2} p={2}>
-                {loading
-                  ? 'Loading'
-                  : data.movies.results.map((movie: TMovieType, index: number) => (
-                      <Grid key={index} item xs={6} md={4} lg={3}>
-                        <MovieCard movie={movie} onCardSelect={selectMovie} />
-                      </Grid>
-                    ))}
+                {loading && <Loader />}
+                {data &&
+                  data.movies.results.map((movie: TMovieType, index: number) => (
+                    <Grid key={index} item xs={6} md={4} lg={3}>
+                      <MovieCard movie={movie} onCardSelect={selectMovie} />
+                    </Grid>
+                  ))}
               </Grid>
             </Paper>
           </Box>
@@ -104,15 +106,21 @@ const Home = () => {
           <>
             <Box>{link}</Box>
             <Box mt={3} display="flex" justifyContent="space-evenly">
-              <Button variant="outlined" color={'warning'} onClick={handleCloseModal}>
+              <IconButton
+                color={'warning'}
+                // onClick={handleCloseModal}
+                href={link}
+                target={'_blank'}
+              >
                 Preview
-              </Button>
+              </IconButton>
               <CopyToClipboard text={link} onCopy={() => toast.dark('Copied')}>
                 <Button variant="outlined" color={'warning'} onClick={handleCloseModal}>
                   Copy link and close modal
                 </Button>
               </CopyToClipboard>
             </Box>
+            <SocialShare link={link} title={'Title'} />
           </>
         </Modal>
       </Grid>

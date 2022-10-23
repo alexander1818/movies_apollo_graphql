@@ -22,3 +22,22 @@ export const MOVIES_QUERY = gql`
     }
   }
 `;
+
+export const MOVIES_BY_IDS_QUERY = gql`
+  query moviesByIds($ids: [Int]) {
+    moviesByIds(ids: $ids) {
+      id
+      title
+      originalTitle
+      originalLanguage
+      releaseDate
+      posterPath
+      adult
+      overview
+      popularity
+      video
+      voteCount
+      voteAverage
+    }
+  }
+`;

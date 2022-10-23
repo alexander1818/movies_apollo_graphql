@@ -1,5 +1,6 @@
 import Home from '../pages/home';
 import Settings from '../pages/settings';
+import Recommended from '../pages/recommended/Recommended';
 
 export const mainRoutes = {
   home: {
@@ -11,6 +12,11 @@ export const mainRoutes = {
     title: 'Settings',
     path: '/settings',
     element: Settings,
+  },
+  recommended: {
+    title: 'Recommended',
+    path: '/recommended',
+    element: Recommended,
   },
 };
 
@@ -24,5 +30,10 @@ export const dashBoardRoutes = {
     title: 'Settings',
     path: '/settings',
     element: Settings,
+  },
+  recommended: {
+    title: 'Recommended',
+    path: '/recommended',
+    element: Recommended,
   },
 };
