@@ -14,9 +14,10 @@ export type TMovieType = {
 type TMovieTypeProps = {
   movie: TMovieType;
   onCardSelect: (movie: TMovieType) => void;
+  isPreviewMode?: boolean;
 };
 
-export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect }) => {
+export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect, isPreviewMode }) => {
   const handleAddMovie = (movie: TMovieType) => {
     onCardSelect(movie);
   };
@@ -40,9 +41,11 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect }) => {
 
       <Box sx={{ position: 'relative' }}>
         <CardMedia component="img" height="350" image={movie.posterPath} alt={movie.title} />
-        <CardMenuWrapper>
-          <AddMovieIcon onClick={() => handleAddMovie(movie)} />
-        </CardMenuWrapper>
+        {!isPreviewMode && (
+          <CardMenuWrapper>
+            <AddMovieIcon onClick={() => handleAddMovie(movie)} />
+          </CardMenuWrapper>
+        )}
       </Box>
       <CardContent>
         <Typography variant="h5" color="text.warning">
