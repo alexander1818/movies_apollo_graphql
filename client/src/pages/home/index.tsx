@@ -56,12 +56,11 @@ const Home = () => {
             <Paper>
               <Grid container spacing={2} p={2}>
                 {loading && <Loader />}
-                {data &&
-                  data.movies.results.map((movie: TMovieType, index: number) => (
-                    <Grid key={index} item xs={6} md={4} lg={3}>
-                      <MovieCard movie={movie} onCardSelect={selectMovie} />
-                    </Grid>
-                  ))}
+                {data?.movies.results.map((movie: TMovieType, index: number) => (
+                  <Grid key={index} item xs={6} md={4} lg={3}>
+                    <MovieCard movie={movie} onCardSelect={selectMovie} />
+                  </Grid>
+                ))}
               </Grid>
             </Paper>
           </Box>

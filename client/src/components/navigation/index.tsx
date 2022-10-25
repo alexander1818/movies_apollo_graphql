@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useCallback, useContext } from 'react';
 
 import { AppBar, Box, Button, IconButton, Toolbar, Drawer, List, Hidden } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { Link } from 'react-router-dom';
 import { dashBoardRoutes } from '../../router/routes';
+import { AppContext } from '../../context/contextApp';
+import { LOCALES } from '../../constants/constants';
+import { TLocale } from '../../context/defaultContext';
 
 const Navigation = () => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
@@ -12,6 +15,13 @@ const Navigation = () => {
   const toggleDrawer = () => {
     setIsDrawerOpen(!isDrawerOpen);
   };
+
+  const { locale, dispatch } = useContext(AppContext);
+  const setLanguage = useCallback((locale: TLocale) => {
+    if (dispatch) {
+      dispatch({ type: 'setLocale', locale });
+    }
+  }, []);
 
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation">
@@ -72,6 +82,26 @@ const Navigation = () => {
               ))}
             </Box>
           </Box>
+          <Box display="flex" alignItems="center">
+            <Button
+              variant={'text'}
+              color={'inherit'}
+              disabled={locale === LOCALES.en}
+              onClick={() => setLanguage(LOCALES.en)}
+            >
+              En
+            </Button>
+            |
+            <Button
+              variant={'text'}
+              color={'inherit'}
+              disabled={locale === LOCALES.uk}
+              onClick={() => setLanguage(LOCALES.uk)}
+            >
+              UK
+            </Button>
+          </Box>
+
           <Button color="inherit">Login</Button>
         </Toolbar>
 

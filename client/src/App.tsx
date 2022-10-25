@@ -1,18 +1,47 @@
-import React from 'react';
-
-import { Box, Container, CssBaseline } from '@mui/material';
-import Navigation from './components/navigation';
+import React, { useContext } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import InternalRouter from './router/Router';
-import { ContainerWrapper } from './styles';
 
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  HttpLink,
+  ApolloLink,
+  from,
+} from '@apollo/client';
+
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import { AppContext } from './context/contextApp';
+import { TDefaultContext } from './context/defaultContext';
+
+import { Container, CssBaseline } from '@mui/material';
+import Navigation from './components/navigation';
+
+import { ContainerWrapper } from './styles';
+
 function App() {
+  const { locale }: TDefaultContext = useContext(AppContext);
+
+  const httpLink = new HttpLink({ uri: 'http://localhost:4000/' });
+  const localeMiddleware = new ApolloLink((operation, forward) => {
+    // eslint-disable-next-line no-prototype-builtins
+    const customHeaders = operation.getContext().hasOwnProperty('headers')
+      ? operation.getContext().headers
+      : {};
+    operation.setContext({
+      headers: {
+        ...customHeaders,
+        locale,
+      },
+    });
+    return forward(operation);
+  });
+
   const client = new ApolloClient({
-    uri: 'http://localhost:4000/',
+    link: from([localeMiddleware, httpLink]),
     cache: new InMemoryCache(),
     connectToDevTools: true,
   });
