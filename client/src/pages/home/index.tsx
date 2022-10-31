@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { Box, Button, Grid, IconButton, Pagination, Paper, Typography } from '@mui/material';
 import { SeletctedMovie, StickyBox } from './styles';
 import MovieCard, { TMovieType } from '../../components/movieCard';
@@ -14,6 +14,8 @@ import { Modal } from '../../components/MaterialUI/modal/Modal';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Loader from '../../components/MaterialUI/loader/Loader';
 import { SocialShare } from '../../components/socialShare/SocialShare';
+import { Link } from 'react-router-dom';
+import { AppContext } from '../../context/contextApp';
 
 const Home = () => {
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
@@ -21,6 +23,7 @@ const Home = () => {
   const [link, setLink] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
   const { loading, error, data } = useQuery(MOVIES_QUERY, { variables: { page } });
+  const { locale } = useContext(AppContext);
 
   const paginationHandler = (event: React.ChangeEvent<unknown>, page: number) => {
     setPage(page);
@@ -30,7 +33,7 @@ const Home = () => {
     const ids = selectedMovies.map(({ id }) => id);
     const link = `${
       window.location.host
-    }/recommended?title=${selectedMoviesField}&ids=${ids.join()}`;
+    }/recommended?title=${selectedMoviesField}&locale=${locale}&ids=${ids.join()}`;
     setLink(link);
     setOpenModal(!openModal);
     toast.dark('Link was created');
@@ -76,6 +79,11 @@ const Home = () => {
         <Grid item xs={12} md={3}>
           <StickyBox>
             <SeletctedMovie>
+              {selectedMovies.length ? (
+                <Typography variant="caption" color="gray">
+                  Selected movies: {selectedMovies.length}
+                </Typography>
+              ) : null}
               {!selectedMovies.length ? (
                 <Box
                   display="flex"
@@ -104,15 +112,16 @@ const Home = () => {
         >
           <>
             <Box>{link}</Box>
-            <Box mt={3} display="flex" justifyContent="space-evenly">
-              <IconButton
+            <Box mt={3} mb={2} display="flex" justifyContent="space-between">
+              <Button
+                variant="outlined"
+                component={Link}
                 color={'warning'}
-                // onClick={handleCloseModal}
-                href={link}
+                to={link.slice(15)}
                 target={'_blank'}
               >
                 Preview
-              </IconButton>
+              </Button>
               <CopyToClipboard text={link} onCopy={() => toast.dark('Copied')}>
                 <Button variant="outlined" color={'warning'} onClick={handleCloseModal}>
                   Copy link and close modal

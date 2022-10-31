@@ -21,6 +21,9 @@ import { Container, CssBaseline } from '@mui/material';
 import Navigation from './components/navigation';
 
 import { ContainerWrapper } from './styles';
+import Tests from './tests';
+import Autocomplete from './tests';
+import Provider from './i18n/i18n';
 
 function App() {
   const { locale }: TDefaultContext = useContext(AppContext);
@@ -47,28 +50,30 @@ function App() {
   });
 
   return (
-    <ApolloProvider client={client}>
-      <BrowserRouter>
-        <CssBaseline />
-        <Navigation />
-        <ContainerWrapper>
-          <Container maxWidth="xl">
-            <InternalRouter />
-            <ToastContainer
-              position="bottom-right"
-              autoClose={4000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-          </Container>
-        </ContainerWrapper>
-      </BrowserRouter>
-    </ApolloProvider>
+    <Provider locale={locale}>
+      <ApolloProvider client={client}>
+        <BrowserRouter>
+          <CssBaseline />
+          <Navigation />
+          <ContainerWrapper>
+            <Container maxWidth="xl">
+              <InternalRouter />
+              <ToastContainer
+                position="bottom-right"
+                autoClose={4000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+              />
+            </Container>
+          </ContainerWrapper>
+        </BrowserRouter>
+      </ApolloProvider>
+    </Provider>
   );
 }
 

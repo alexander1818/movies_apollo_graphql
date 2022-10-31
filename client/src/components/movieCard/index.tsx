@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import { CardMenu } from '../MaterialUI/cardMenu/CardMenu';
-import { AddMovieIcon, CardMenuWrapper } from './styles';
+import { AddMovieIcon, CardMenuWrapper, CardTitle } from './styles';
 
 export type TMovieType = {
   id: number;
@@ -48,9 +48,7 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect, isPreviewM
         )}
       </Box>
       <CardContent>
-        <Typography variant="h5" color="text.warning">
-          {movie.title}
-        </Typography>
+        <CardTitle>{movie.title}</CardTitle>
         <Typography variant="body1" color="text.secondary">
           {movie.description}
         </Typography>

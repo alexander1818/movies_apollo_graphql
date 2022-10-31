@@ -25,3 +25,10 @@ export const AddMovieIcon = styled(PlaylistAddIcon)(({ theme }) => ({
   color: '#ffffffd9',
   cursor: 'pointer',
 }));
+
+export const CardTitle = styled(Box)(({ theme }) => ({
+  display: '-webkit-box',
+  overflow: 'hidden',
+  WebkitLineClamp: 1,
+  WebkitBoxOrient: 'vertical',
+}));

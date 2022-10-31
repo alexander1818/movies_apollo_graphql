@@ -28,7 +28,7 @@ const Recommended = () => {
             {loading && <Loader />}
             {data &&
               data.moviesByIds.map((movie: TMovieType, index: number) => (
-                <Grid key={index} item xs={6} md={4} lg={3}>
+                <Grid key={index} item xs={12} md={3} lg={2}>
                   <MovieCard movie={movie} onCardSelect={selectMovie} isPreviewMode />
                 </Grid>
               ))}

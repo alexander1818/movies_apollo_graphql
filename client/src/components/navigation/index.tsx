@@ -8,6 +8,7 @@ import { dashBoardRoutes } from '../../router/routes';
 import { AppContext } from '../../context/contextApp';
 import { LOCALES } from '../../constants/constants';
 import { TLocale } from '../../context/defaultContext';
+import { FormattedMessage } from 'react-intl';
 
 const Navigation = () => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
@@ -76,7 +77,8 @@ const Navigation = () => {
                     // startIcon={<Icon color={pathname === path ? colors.blue : colors.blackBeauty} />}
                     // onClick={() => handler(index)}
                   >
-                    {title}
+                    <FormattedMessage id={`navigation.${title}`} />
+                    {/*{title}*/}
                   </Button>
                 </Box>
               ))}
