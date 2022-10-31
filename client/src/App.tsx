@@ -21,8 +21,7 @@ import { Container, CssBaseline } from '@mui/material';
 import Navigation from './components/navigation';
 
 import { ContainerWrapper } from './styles';
-import Tests from './tests';
-import Autocomplete from './tests';
+
 import Provider from './i18n/i18n';
 
 function App() {
