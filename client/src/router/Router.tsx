@@ -5,7 +5,7 @@ import { mainRoutes } from './routes';
 const InternalRouter: FC = () => {
   return (
     <Routes>
-      {Object.values(mainRoutes).map((r, index) => {
+      {Object.values(mainRoutes).map((r: any, index) => {
         return <Route key={index + r.path} path={r.path} element={<r.element />} />;
       })}
     </Routes>
