@@ -1,6 +1,7 @@
 import Home from '../pages/home';
 import Settings from '../pages/settings';
 import Recommended from '../pages/recommended/Recommended';
+import MovieDetails from '../pages/movieDetails/MovieDetails';
 
 export const mainRoutes = {
   home: {
@@ -17,6 +18,11 @@ export const mainRoutes = {
     title: 'Recommended',
     path: '/recommended',
     element: Recommended,
+  },
+  movieDetails: {
+    title: 'Movie details',
+    path: '/movie-details:id',
+    element: MovieDetails,
   },
 };
 

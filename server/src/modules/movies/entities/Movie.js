@@ -22,7 +22,7 @@ class Movie {
         this.voteCount = movie.vote_count;
         this.voteAverage = movie.vote_average;
         this.video = movie.video;
-        // this.genres = movie.genre_ids.map((genre) => new Genre(genre))
+        this.genre_ids = movie.genre_ids.map((id) => +id)
     }
 
     releaseDate(params) {

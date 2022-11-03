@@ -2,12 +2,16 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import { CardMenu } from '../MaterialUI/cardMenu/CardMenu';
 import { AddMovieIcon, CardMenuWrapper, CardTitle } from './styles';
+import { dashBoardRoutes } from '../../router/routes';
+import MovieDetails from '../../pages/movieDetails/MovieDetails';
+import { Route, Routes } from 'react-router-dom';
 
 export type TMovieType = {
   id: number;
   posterPath: string;
   title: string;
   description: string;
+  genre_ids?: [number];
   releaseDate?: string;
 };
 
@@ -48,7 +52,12 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect, isPreviewM
         )}
       </Box>
       <CardContent>
-        <CardTitle>{movie.title}</CardTitle>
+        <CardTitle
+          to={`movie-details:${movie.id}`}
+          // onClick={() => handleAddMovie(movie)}
+        >
+          {movie.title}
+        </CardTitle>
         <Typography variant="body1" color="text.secondary">
           {movie.description}
         </Typography>
