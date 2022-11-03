@@ -16,7 +16,7 @@ const Recommended = () => {
     ?.split(',')
     .map((id) => parseInt(id));
   const title = new URLSearchParams(params).get('title');
-
+  console.log('params recomm', ids);
   const { loading, error, data } = useQuery(MOVIES_BY_IDS_QUERY, { variables: { ids } });
 
   return (

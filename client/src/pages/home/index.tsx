@@ -19,9 +19,11 @@ import { AppContext } from '../../context/contextApp';
 
 const Home = () => {
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
+
   const [page, setPage] = useState<number>(1);
   const [link, setLink] = useState<string>('');
   const [openModal, setOpenModal] = useState<boolean>(false);
+
   const { loading, error, data } = useQuery(MOVIES_QUERY, { variables: { page } });
   const { locale } = useContext(AppContext);
 
@@ -59,11 +61,13 @@ const Home = () => {
             <Paper>
               <Grid container spacing={2} p={2}>
                 {loading && <Loader />}
-                {data?.movies.results.map((movie: TMovieType, index: number) => (
-                  <Grid key={index} item xs={6} md={4} lg={3}>
-                    <MovieCard movie={movie} onCardSelect={selectMovie} />
-                  </Grid>
-                ))}
+                {data?.movies.results.map((movie: TMovieType, index: number) => {
+                  return (
+                    <Grid key={index} item xs={6} md={4} lg={3}>
+                      <MovieCard movie={movie} onCardSelect={selectMovie} />
+                    </Grid>
+                  );
+                })}
               </Grid>
             </Paper>
           </Box>
