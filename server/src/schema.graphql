@@ -1,6 +1,7 @@
 type Query {
     movies(page: Int): Movies
     moviesByIds(ids:[Int]): [Movie]
+    movieByID(id: Int): MovieByID
 }
 
 type Movies {
@@ -17,13 +18,56 @@ type Movie {
     originalLanguage: String
     releaseDate(format: String): String!
     posterPath: String
-    genres: [Genre]
+    genre_ids: [Int]
     adult: Boolean
     overview: String
     popularity: Float
     video: Boolean
     voteCount: Int
     voteAverage: Float
+}
+
+type MovieByID {
+    adult: Boolean
+    backdrop_path: String
+    budget: Int
+    genres: [Genre]
+    homepage: String
+    id: ID!
+    imdb_id: String
+    original_language: String
+    original_title: String
+    overview: String
+    popularity: Float
+    poster_path: String
+    production_companies: [ProductionCompanies]
+    production_countries: [ProductionCountry]
+    release_date(format: String): String!
+    revenue: Int
+    runtime: Int
+    spoken_languages: [SpokenLangs]
+    tagline: String
+    title: String
+    video: Boolean
+    vote_average: Float
+    vote_count: Int
+}
+
+type ProductionCompanies {
+    name: String
+    id: ID
+    logo_path: String
+    origin_country: String
+}
+
+type ProductionCountry {
+    iso_3166_1: String
+    name: String
+}
+
+type SpokenLangs {
+    iso_639_1: String
+    name: String
 }
 
 type Genre {
