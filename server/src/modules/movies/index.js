@@ -21,7 +21,13 @@ const getMovieById = async (id, language) => {
     return new MovieById(result.data);
 }
 
+const getSimilarMovies = async (id, language) => {
+    const url = `${BASE_API_URL}/movie/${id}/similar?api_key=${API_KEY}&language=${language}&page=${1}`;
+    const result = await axios.get(url);
+    return new Movies(result.data);
+}
+
 module.exports = {
-    getPopular, getMoviesByIds, getMovieById
+    getPopular, getMoviesByIds, getMovieById, getSimilarMovies
 
 }
