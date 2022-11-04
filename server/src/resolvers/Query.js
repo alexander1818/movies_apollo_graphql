@@ -1,4 +1,4 @@
-const {getPopular, getMoviesByIds, getMovieById} = require('../modules/movies')
+const {getPopular, getMoviesByIds, getMovieById, getSimilarMovies} = require('../modules/movies')
 const {Movie} = require("../modules/movies/entities/Movie");
 
 async function movies(parent, args, { locale }) {
@@ -18,6 +18,11 @@ async function movieByID(parent, { id }, { locale }) {
     return data;
 }
 
+async function similarMovies(parent, args, { locale }) {
+    const data = await getSimilarMovies(args.id, locale);
+    return data;
+}
+
 module.exports = {
-    movies, moviesByIds, movieByID
+    movies, moviesByIds, movieByID, similarMovies
 }

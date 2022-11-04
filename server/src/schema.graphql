@@ -2,6 +2,7 @@ type Query {
     movies(page: Int): Movies
     moviesByIds(ids:[Int]): [Movie]
     movieByID(id: Int): MovieByID
+    similarMovies(id: Int): Movies
 }
 
 type Movies {

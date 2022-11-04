@@ -8,7 +8,7 @@ import MovieCard, { TMovieType } from '../../components/movieCard';
 import React from 'react';
 
 const Recommended = () => {
-  const { selectedMovies, selectMovie, deleteMovie } = useMovies();
+  const { selectMovie } = useMovies();
 
   const [params, setParams] = useSearchParams();
   const ids = new URLSearchParams(params)
@@ -16,7 +16,7 @@ const Recommended = () => {
     ?.split(',')
     .map((id) => parseInt(id));
   const title = new URLSearchParams(params).get('title');
-  console.log('params recomm', ids);
+
   const { loading, error, data } = useQuery(MOVIES_BY_IDS_QUERY, { variables: { ids } });
 
   return (
