@@ -79,7 +79,6 @@ const Navigation = () => {
                     // onClick={() => handler(index)}
                   >
                     <FormattedMessage id={`navigation.${title}`} />
-                    {/*{title}*/}
                   </Button>
                 </Box>
               ))}

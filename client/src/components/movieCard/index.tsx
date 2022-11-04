@@ -54,6 +54,7 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect, isPreviewM
       <CardContent>
         <CardTitle
           to={`movie-details:${movie.id}`}
+          target={'_blank'}
           // onClick={() => handleAddMovie(movie)}
         >
           {movie.title}

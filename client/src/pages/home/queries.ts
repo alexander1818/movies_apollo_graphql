@@ -85,3 +85,27 @@ export const MOVIES_BY_ID_QUERY = gql`
     }
   }
 `;
+
+export const SIMAILAR_MOVIES_QUERY = gql`
+  query similarMovies($id: Int) {
+    similarMovies(id: $id) {
+      page
+      totalPages
+      totalResults
+      results {
+        voteAverage
+        voteCount
+        popularity
+        overview
+        adult
+        genre_ids
+        posterPath
+        releaseDate(format: "dd.MM.yyyy")
+        title
+        originalTitle
+        originalLanguage
+        id
+      }
+    }
+  }
+`;

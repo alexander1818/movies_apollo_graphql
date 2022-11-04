@@ -4,6 +4,7 @@ import { MOVIES_BY_ID_QUERY } from '../home/queries';
 import { useLocation } from 'react-router-dom';
 import React from 'react';
 import Loader from '../../components/MaterialUI/loader/Loader';
+import SimilarMovies from './SimilarMovies';
 
 const API_IMAGE_URL = 'https://image.tmdb.org/t/p/w200';
 
@@ -83,7 +84,7 @@ const MovieDetails = () => {
               <Typography variant={'body1'}>{movie.release_date}</Typography>&nbsp; (
               <span>{movie.production_countries[0]?.iso_3166_1}</span>)&nbsp;
               {movie.genres.map((genre: TGenre) => (
-                <span>{genre.name},&nbsp;</span>
+                <span key={genre.id}>{genre.name},&nbsp;</span>
               ))}
               <span>{movie.runtime} min</span>
             </Box>
@@ -110,6 +111,9 @@ const MovieDetails = () => {
           </Grid>
         </Grid>
       )}
+      <Box mt={3} style={{ overflow: 'auto', height: 500 }}>
+        <SimilarMovies id={id} />
+      </Box>
     </>
   );
 };
