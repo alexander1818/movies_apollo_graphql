@@ -1,21 +1,30 @@
 import React, { FC, useContext, useState } from 'react';
-import { Box, Button, Grid, IconButton, Pagination, Paper, Typography } from '@mui/material';
-import { SeletctedMovie, StickyBox } from './styles';
-import MovieCard, { TMovieType } from '../../components/movieCard';
+import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { useQuery } from '@apollo/client';
 import { MOVIES_QUERY } from './queries';
-import { useMovies } from '../../hooks/useMovies/useMovies';
+
+import MovieCard, { TMovieType } from '../../components/movieCard';
 import MovieCardSelected from '../../components/movieCardSelected';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
-import SelectedMovieForm from '../../components/selectedMovieForm/SelectedMovieForm';
-import { toast } from 'react-toastify';
+import SelectedMovieForm, {
+  TFormValues,
+} from '../../components/selectedMovieForm/SelectedMovieForm';
 import { Modal } from '../../components/MaterialUI/modal/Modal';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Loader from '../../components/MaterialUI/loader/Loader';
 import { SocialShare } from '../../components/socialShare/SocialShare';
-import { Link } from 'react-router-dom';
+
 import { AppContext } from '../../context/contextApp';
+import { mainRoutes } from '../../router/routes';
+
+import { useMovies } from '../../hooks/useMovies/useMovies';
+
+import { Box, Button, Grid, Pagination, Paper, Typography } from '@mui/material';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+
+import { SeletctedMovie, StickyBox } from './styles';
 
 const Home = () => {
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
@@ -26,16 +35,17 @@ const Home = () => {
 
   const { loading, error, data } = useQuery(MOVIES_QUERY, { variables: { page } });
   const { locale } = useContext(AppContext);
+  const host = `${window.location.host}`;
 
   const paginationHandler = (event: React.ChangeEvent<unknown>, page: number) => {
     setPage(page);
   };
 
-  const onSubmit = ({ selectedMoviesField }: any) => {
+  const onSubmit = ({ selectedMoviesField }: TFormValues) => {
     const ids = selectedMovies.map(({ id }) => id);
     const link = `${
-      window.location.host
-    }/recommended?title=${selectedMoviesField}&locale=${locale}&ids=${ids.join()}`;
+      mainRoutes.recommended.path
+    }?title=${selectedMoviesField}&locale=${locale}&ids=${ids.join()}`;
     setLink(link);
     setOpenModal(!openModal);
     toast.dark('Link was created');
@@ -115,13 +125,13 @@ const Home = () => {
           maxWidth={'lg'}
         >
           <>
-            <Box>{link}</Box>
+            <Box>{host + link}</Box>
             <Box mt={3} mb={2} display="flex" justifyContent="space-between">
               <Button
                 variant="outlined"
                 component={Link}
                 color={'warning'}
-                to={link.slice(15)}
+                to={link}
                 target={'_blank'}
               >
                 Preview

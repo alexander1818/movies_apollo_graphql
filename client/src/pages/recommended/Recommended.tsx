@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { MOVIES_BY_IDS_QUERY } from '../home/queries';
 import { useMovies } from '../../hooks/useMovies/useMovies';
-import { useSearchParams } from 'react-router-dom';
+import { useLocation, useParams, useSearchParams } from 'react-router-dom';
 import { Box, Grid, Paper, Typography } from '@mui/material';
 import Loader from '../../components/MaterialUI/loader/Loader';
 import MovieCard, { TMovieType } from '../../components/movieCard';
