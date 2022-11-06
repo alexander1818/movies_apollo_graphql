@@ -1,8 +1,6 @@
 import { Box, styled } from '@mui/material';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
-import { Link, LinkProps } from 'react-router-dom';
-import { RefAttributes } from 'react';
-import { StyledComponent } from '@emotion/styled';
+import { Link, NavLink } from 'react-router-dom';
 
 export const CardMenuWrapper = styled(Box)(({ theme }) => ({
   position: 'absolute',
@@ -29,13 +27,7 @@ export const AddMovieIcon = styled(PlaylistAddIcon)(({ theme }) => ({
   cursor: 'pointer',
 }));
 
-export type TLinkProps = {
-  title: string;
-  path: string;
-  element: () => JSX.Element;
-  to: LinkProps;
-};
-export const CardTitle = styled(Link)(({ theme }) => ({
+export const CardTitle = styled(NavLink)(({ theme }) => ({
   display: '-webkit-box',
   overflow: 'hidden',
   WebkitLineClamp: 1,
@@ -44,6 +36,7 @@ export const CardTitle = styled(Link)(({ theme }) => ({
   color: '#545454',
   transition: '0.3s ease',
   cursor: 'pointer',
+  textDecoration: 'none',
   '&:hover': {
     color: '#878787',
   },

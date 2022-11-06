@@ -7,7 +7,7 @@ import MovieCard, { TMovieType } from '../../components/movieCard';
 import { useMovies } from '../../hooks/useMovies/useMovies';
 
 type TSimilarMoviesProps = {
-  id: number;
+  id: number | '' | undefined;
 };
 
 const SimilarMovies: FC<TSimilarMoviesProps> = ({ id }) => {
@@ -20,7 +20,7 @@ const SimilarMovies: FC<TSimilarMoviesProps> = ({ id }) => {
         {loading && <Loader />}
         {data?.similarMovies.results.map((movie: TMovieType, index: number) => {
           return (
-            <Grid key={index} item xs={6} md={4} lg={3}>
+            <Grid key={index} item xs={12} md={3} lg={2}>
               <MovieCard movie={movie} onCardSelect={selectMovie} isPreviewMode={true} />
             </Grid>
           );

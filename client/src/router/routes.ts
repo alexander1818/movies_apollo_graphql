@@ -6,7 +6,7 @@ import MovieDetails from '../pages/movieDetails/MovieDetails';
 export const mainRoutes = {
   home: {
     title: 'Home Page',
-    path: '/',
+    path: '/movie',
     element: Home,
   },
   settings: {
@@ -16,12 +16,12 @@ export const mainRoutes = {
   },
   recommended: {
     title: 'Recommended',
-    path: '/recommended',
+    path: '/movie/recommended',
     element: Recommended,
   },
   movieDetails: {
     title: 'Movie details',
-    path: '/movie-details:id',
+    path: '/movie/:id',
     element: MovieDetails,
   },
 };
@@ -29,7 +29,7 @@ export const mainRoutes = {
 export const dashBoardRoutes = {
   home: {
     title: 'Home Page',
-    path: '/',
+    path: '/movie',
     element: Home,
   },
   settings: {
