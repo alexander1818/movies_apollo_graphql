@@ -3,6 +3,7 @@ import { Box, Grid, styled, Theme } from '@mui/material';
 interface SomeProps {
   image: string;
 }
+
 export const GridMui = styled(Grid, { shouldForwardProp: (prop) => prop !== 'image' })<{
   image: string;
 }>(({ theme, image }) => {

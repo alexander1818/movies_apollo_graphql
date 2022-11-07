@@ -34,6 +34,7 @@ const Home = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const { loading, error, data } = useQuery(MOVIES_QUERY, { variables: { page } });
+
   const { locale } = useContext(AppContext);
   const host = `${window.location.host}`;
 
