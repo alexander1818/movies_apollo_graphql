@@ -1,7 +1,7 @@
 import { Box, CardMedia, Grid, Typography } from '@mui/material';
 import { useQuery } from '@apollo/client';
 import { MOVIES_BY_ID_QUERY } from '../home/queries';
-import { Params, useLocation, useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import React from 'react';
 import Loader from '../../components/MaterialUI/loader/Loader';
 import SimilarMovies from './SimilarMovies';
