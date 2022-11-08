@@ -1,10 +1,14 @@
-import { Box, CardMedia, Grid, Typography } from '@mui/material';
-import { useQuery } from '@apollo/client';
-import { MOVIES_BY_ID_QUERY } from '../home/queries';
-import { useParams } from 'react-router-dom';
 import React from 'react';
+
+import { useQuery } from '@apollo/client';
+import { MOVIE_BY_ID_QUERY } from '../home/queries';
+
+import { useParams } from 'react-router-dom';
+
 import Loader from '../../components/MaterialUI/loader/Loader';
 import SimilarMovies from './SimilarMovies';
+
+import { Box, CardMedia, Grid, Typography } from '@mui/material';
 import { GridMui } from './styles';
 
 const API_IMAGE_URL = 'https://image.tmdb.org/t/p/w200';
@@ -33,35 +37,35 @@ type TSpokenLangs = {
 
 type TMovieByID = {
   adult: boolean;
-  backdrop_path: string;
+  backdropPath: string;
   budget: number;
   genres: [TGenre];
   homepage: string;
   id: string;
-  imdb_id: string;
-  original_language: string;
-  original_title: string;
+  imdbId: string;
+  originalLanguage: string;
+  originalTitle: string;
   overview: string;
   popularity: number;
-  poster_path: string;
-  production_companies: [TProductionCompanies];
-  production_countries: [TProductionCountry];
-  release_date: string;
+  posterPath: string;
+  productionCompanies: [TProductionCompanies];
+  productionCountries: [TProductionCountry];
+  releaseDate: string;
   revenue: number;
   runtime: number;
-  spoken_languages: [TSpokenLangs];
+  spokenLanguages: [TSpokenLangs];
   tagline: string;
   title: string;
   video: boolean;
-  vote_average: number;
-  vote_count: number;
+  voteAverage: number;
+  voteCount: number;
 };
 
 const MovieDetails = () => {
   const { id } = useParams<{ id: string }>();
   const idInt = id && parseInt(id);
 
-  const { loading, error, data } = useQuery(MOVIES_BY_ID_QUERY, { variables: { id: idInt } });
+  const { loading, error, data } = useQuery(MOVIE_BY_ID_QUERY, { variables: { id: idInt } });
   const movie: TMovieByID = data && data?.movieByID;
 
   return (
@@ -73,11 +77,11 @@ const MovieDetails = () => {
             <CardMedia
               component="img"
               sx={{ height: '100%' }}
-              image={movie.poster_path}
+              image={movie.posterPath}
               alt={movie.title}
             />
           </Grid>
-          <GridMui item lg={9} image={movie.backdrop_path}>
+          <GridMui item lg={9} image={movie.backdropPath}>
             <Box
               p={2}
               gap={2}
@@ -87,11 +91,11 @@ const MovieDetails = () => {
               sx={{ height: '100%', background: 'rgba(0,0,0,0.2)' }}
             >
               <Typography variant="h5" sx={{ color: '#fff' }}>
-                {movie.title} ({movie.release_date.slice(0, 4)})
+                {movie.title} ({movie.releaseDate.slice(0, 4)})
               </Typography>
               <Box display={'flex'} style={{ color: '#fff' }}>
-                <Typography variant={'body1'}>{movie.release_date}</Typography>
-                &nbsp; (<span>{movie.production_countries[0]?.iso_3166_1}</span>
+                <Typography variant={'body1'}>{movie.releaseDate}</Typography>
+                &nbsp; (<span>{movie.productionCountries[0]?.iso_3166_1}</span>
                 )&nbsp;
                 {movie.genres.map((genre: TGenre) => (
                   <span key={genre.id}>{genre.name},&nbsp;</span>
@@ -99,7 +103,7 @@ const MovieDetails = () => {
                 <span>{movie.runtime} min</span>
               </Box>
               <Typography sx={{ color: '#fff' }} fontWeight={700} variant={'body1'}>
-                Rating: {movie.vote_average.toFixed(1)}
+                Rating: {movie.voteAverage.toFixed(1)}
               </Typography>{' '}
               <Typography variant={'body1'} sx={{ color: '#fff' }} fontStyle={'italic'}>
                 {movie.tagline}
@@ -111,7 +115,7 @@ const MovieDetails = () => {
                 {movie.overview}
               </Typography>
               <Box display={'flex'} justifyContent="space-evenly" alignItems="center">
-                {movie.production_companies.map(
+                {movie.productionCompanies.map(
                   (company: TProductionCompanies) =>
                     company.logo_path && (
                       <img key={company.id} src={API_IMAGE_URL + company.logo_path} />
