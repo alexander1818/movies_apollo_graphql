@@ -34,31 +34,31 @@ class SpokenLangs {
 class MovieById {
     constructor(movie) {
         this.adult = movie.adult;
-        this.backdrop_path = `${IMAGE_BASE_PATH}${movie.backdrop_path}`;
+        this.backdropPath = `${IMAGE_BASE_PATH}${movie.backdrop_path}`;
         this.budget = movie.budget;
         this.genres = movie.genres.map((genre) => new Genre(genre));
         this.homepage = movie.homepage;
         this.id = movie.id;
         this.imdb_id = movie.imdb_id;
-        this.original_language = movie.originalLanguage;
-        this.original_title = movie.original_title;
+        this.originalLanguage = movie.original_language;
+        this.originalTitle = movie.original_title;
         this.overview = movie.overview;
         this.popularity = movie.popularity;
-        this.poster_path = `${IMAGE_BASE_PATH}${movie.poster_path}`;
-        this.production_companies = movie.production_companies.map((company) => new ProductionCompanies(company));
-        this.production_countries = movie.production_countries.map((country) => new ProductionCountry(country));
-        this.release_date = movie.release_date;
+        this.posterPath = `${IMAGE_BASE_PATH}${movie.poster_path}`;
+        this.productionCompanies = movie.production_companies.map((company) => new ProductionCompanies(company));
+        this.productionCountries = movie.production_countries.map((country) => new ProductionCountry(country));
+        this.releaseDate = movie.release_date;
         this.revenue = movie.revenue;
         this.runtime = movie.runtime;
-        this.spoken_languages = movie.spoken_languages.map((language) => new SpokenLangs(language));
+        this.spokenLanguages = movie.spoken_languages.map((language) => new SpokenLangs(language));
         this.tagline = movie.tagline;
         this.title = movie.title;
         this.video = movie.video;
-        this.vote_average = movie.vote_average;
-        this.vote_count = movie.vote_count;
+        this.voteAverage = movie.vote_average;
+        this.voteCount = movie.vote_count;
     }
 
-    release_date(params) {
+    releaseDate(params) {
         return params.format
             ? format(new Date(this.movie.release_date), params.format)
             : this.movie.release_date
