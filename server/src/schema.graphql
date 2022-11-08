@@ -1,6 +1,6 @@
 type Query {
     movies(page: Int): Movies
-    moviesByIds(ids:[Int]): [Movie]
+    moviesByIds(ids:[Int]): [MovieByID]
     movieByID(id: Int): MovieByID
     similarMovies(id: Int): Movies
 }
@@ -30,28 +30,28 @@ type Movie {
 
 type MovieByID {
     adult: Boolean
-    backdrop_path: String
+    backdropPath: String
     budget: Int
     genres: [Genre]
     homepage: String
     id: ID!
-    imdb_id: String
-    original_language: String
-    original_title: String
+    imdbId: String
+    originalLanguage: String
+    originalTitle: String
     overview: String
     popularity: Float
-    poster_path: String
-    production_companies: [ProductionCompanies]
-    production_countries: [ProductionCountry]
-    release_date(format: String): String!
+    posterPath: String
+    productionCompanies: [ProductionCompanies]
+    productionCountries: [ProductionCountry]
+    releaseDate(format: String): String!
     revenue: Int
     runtime: Int
-    spoken_languages: [SpokenLangs]
+    spokenLanguages: [SpokenLangs]
     tagline: String
     title: String
     video: Boolean
-    vote_average: Float
-    vote_count: Int
+    voteAverage: Float
+    voteCount: Int
 }
 
 type ProductionCompanies {

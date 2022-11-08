@@ -1,5 +1,5 @@
 const {getPopular, getMoviesByIds, getMovieById, getSimilarMovies} = require('../modules/movies')
-const {Movie} = require("../modules/movies/entities/Movie");
+const {MovieById} = require("../modules/movies/entities/MovieById");
 
 async function movies(parent, args, { locale }) {
     const data = await getPopular(args.page, locale);
@@ -9,7 +9,7 @@ async function movies(parent, args, { locale }) {
 async function moviesByIds(parent, { ids }, { locale }) {
     const request = ids.map((id) => getMoviesByIds(id, locale));
     const data = await Promise.all(request)
-    const movies = data.map(({data}) => new Movie(data))
+    const movies = data.map(({data}) => new MovieById(data))
     return movies;
 }
 

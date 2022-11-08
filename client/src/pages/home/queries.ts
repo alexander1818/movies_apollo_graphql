@@ -39,15 +39,19 @@ export const MOVIES_BY_IDS_QUERY = gql`
       video
       voteCount
       voteAverage
+      genres {
+        id
+        name
+      }
     }
   }
 `;
 
-export const MOVIES_BY_ID_QUERY = gql`
+export const MOVIE_BY_ID_QUERY = gql`
   query MovieByID($id: Int) {
     movieByID(id: $id) {
       adult
-      backdrop_path
+      backdropPath
       budget
       genres {
         id
@@ -55,33 +59,33 @@ export const MOVIES_BY_ID_QUERY = gql`
       }
       homepage
       id
-      imdb_id
-      original_language
-      original_title
+      imdbId
+      originalLanguage
+      originalTitle
       overview
       popularity
-      poster_path
-      production_companies {
+      posterPath
+      productionCompanies {
         id
         name
         logo_path
         origin_country
       }
-      production_countries {
+      productionCountries {
         name
         iso_3166_1
       }
-      release_date
+      releaseDate
       revenue
       runtime
-      spoken_languages {
+      spokenLanguages {
         name
         iso_639_1
       }
       tagline
       title
       video
-      vote_average
+      voteAverage
     }
   }
 `;
@@ -98,7 +102,7 @@ export const SIMAILAR_MOVIES_QUERY = gql`
         popularity
         overview
         adult
-        genre_ids
+        #        genre_ids
         posterPath
         releaseDate(format: "dd.MM.yyyy")
         title
