@@ -1,4 +1,4 @@
-const {getPopular, getMoviesByIds, getMovieById, getSimilarMovies} = require('../modules/movies')
+const {getPopular, getMoviesByIds, getMovieById, getSimilarMovies, getAllUsers, getUser, createUser} = require('../modules/movies')
 const {MovieById} = require("../modules/movies/entities/MovieById");
 
 async function movies(parent, args, { locale }) {
@@ -23,6 +23,21 @@ async function similarMovies(parent, args, { locale }) {
     return data;
 }
 
+async function allUsers(parent, _) {
+    const data = await getAllUsers();
+    return data;
+}
+
+async function user(parent, {id}) {
+    const data = await getUser(id);
+    return data;
+}
+
+async function newUser(parent, args) {
+    const data = await createUser(args.input);
+    return data;
+}
+
 module.exports = {
-    movies, moviesByIds, movieByID, similarMovies
+    movies, moviesByIds, movieByID, similarMovies, allUsers, user, newUser
 }
