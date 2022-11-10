@@ -1,11 +1,20 @@
+require('dotenv/config');
 const fs = require('fs');
 const path = require('path');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const { ApolloServer } = require('apollo-server');
 
-const Query = require('./resolvers/Query')
+const userResolvers = require('./resolvers/index')
+
+const {Query, Mutation} = userResolvers;
+const typeDefs = require('./typeDefs/main/index')
+
+const PORT = process.env.PORT || 4000;
 
 const resolvers = {
-    Query
+    Query,
+    Mutation
 }
 
 const context = ({ req, res }) => ({
@@ -17,12 +26,20 @@ const server = new ApolloServer({
         path.join(__dirname, 'schema.graphql'),
         'utf8'
     ),
+    typeDefs,
     resolvers,
-    context
+    context,
 })
 
-server
-    .listen()
-    .then(({ url }) =>
-        console.log(`Server is running on ${url}`)
-    );
+mongoose
+    .connect(process.env.MONGODB_URL, { useNewUrlParser: true })
+    .then(() => {
+        console.log('MongoDB Connected');
+        return server.listen({ port: PORT });
+    })
+    .then((res) => {
+        console.log(`Server running at ${res.url}`);
+    })
+    .catch(err => {
+        console.error(err)
+    })
