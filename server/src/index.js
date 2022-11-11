@@ -6,8 +6,8 @@ const cookieParser = require('cookie-parser');
 const { ApolloServer } = require('apollo-server');
 
 const userResolvers = require('./resolvers/index')
-
 const {Query, Mutation} = userResolvers;
+
 const typeDefs = require('./typeDefs/main/index')
 
 const PORT = process.env.PORT || 4000;
@@ -22,10 +22,6 @@ const context = ({ req, res }) => ({
 })
 
 const server = new ApolloServer({
-    typeDefs: fs.readFileSync(
-        path.join(__dirname, 'schema.graphql'),
-        'utf8'
-    ),
     typeDefs,
     resolvers,
     context,
