@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const MOVIES_QUERY = gql`
-  query Movies($page: Int) {
-    movies(page: $page) {
+  query popularMovies($page: Int) {
+    popularMovies(page: $page) {
       page
       totalPages
       totalResults
@@ -49,7 +49,7 @@ export const MOVIES_BY_IDS_QUERY = gql`
 
 export const MOVIE_BY_ID_QUERY = gql`
   query MovieByID($id: Int) {
-    movieByID(id: $id) {
+    getMovieById(id: $id) {
       adult
       backdropPath
       budget
@@ -110,6 +110,16 @@ export const SIMAILAR_MOVIES_QUERY = gql`
         originalLanguage
         id
       }
+    }
+  }
+`;
+
+export const GET_ALL_USERS = gql`
+  query allUsers {
+    allUsers {
+      id
+      userName
+      age
     }
   }
 `;

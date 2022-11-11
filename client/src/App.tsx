@@ -28,7 +28,7 @@ import Provider from './i18n/i18n';
 function App() {
   const { locale }: TDefaultContext = useContext(AppContext);
 
-  const httpLink = new HttpLink({ uri: 'http://localhost:4000/' });
+  const httpLink = new HttpLink({ uri: 'http://localhost:5000/' });
   const localeMiddleware = new ApolloLink((operation, forward) => {
     // eslint-disable-next-line no-prototype-builtins
     const customHeaders = operation.getContext().hasOwnProperty('headers')

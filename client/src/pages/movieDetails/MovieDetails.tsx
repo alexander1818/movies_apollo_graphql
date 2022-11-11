@@ -66,7 +66,7 @@ const MovieDetails = () => {
   const idInt = id && parseInt(id);
 
   const { loading, error, data } = useQuery(MOVIE_BY_ID_QUERY, { variables: { id: idInt } });
-  const movie: TMovieByID = data && data?.movieByID;
+  const movie: TMovieByID = data && data?.getMovieById;
 
   return (
     <>
