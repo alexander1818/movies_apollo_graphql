@@ -2,7 +2,6 @@ const axios = require('axios');
 const {Movies} = require('./entities/Movies')
 const {API_KEY} = require('../../config/index')
 const {MovieById} = require("./entities/MovieById");
-const {NewUser} = require("./entities/newUser");
 
 const BASE_API_URL = 'https://api.themoviedb.org/3'
 
@@ -39,14 +38,14 @@ async function getUser(id) {
     return data;
 }
 async function createUser(input) {
-    const id = Date.now();
-    const user = {
-        id,
-        ...input
-    }
-    users.push(user);
-    console.log(' USER==>', user);
-    return new NewUser(user) ;
+    // const id = Date.now();
+    // const user = {
+    //     id,
+    //     ...input
+    // }
+    // users.push(user);
+    // console.log(' USER==>', user);
+    // return new NewUser(user) ;
 }
 
 module.exports = {

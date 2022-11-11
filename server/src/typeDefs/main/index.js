@@ -4,11 +4,12 @@ module.exports = gql`
     type Query {
         movies(page: Int): Movies
         moviesByIds(ids:[Int]): [MovieByID]
-        movieByID(id: Int): MovieByID
+        getMovieById(id: Int): MovieByID
         similarMovies(id: Int): Movies
         user(id: String): User
         allUsers: [User]
-        newUser(input: UserInput): User
+        popularMovies(page: Int): Movies
+#        newUser(input: UserInput): User
     }
 
     type Movies {
