@@ -37,18 +37,8 @@ async function getUser(id) {
     const data = users.find((user) => id === user.id);
     return data;
 }
-async function createUser(input) {
-    // const id = Date.now();
-    // const user = {
-    //     id,
-    //     ...input
-    // }
-    // users.push(user);
-    // console.log(' USER==>', user);
-    // return new NewUser(user) ;
-}
 
 module.exports = {
-    getPopular, getMoviesByIds, getMovieById, getSimilarMovies, getAllUsers, getUser, createUser
+    getPopular, getMoviesByIds, getMovieById, getSimilarMovies, getAllUsers, getUser
 
 }
