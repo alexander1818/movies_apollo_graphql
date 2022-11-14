@@ -4,7 +4,7 @@ import { AppBar, Box, Button, IconButton, Toolbar, Drawer, List, Hidden } from '
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { Link } from 'react-router-dom';
-import { dashBoardRoutes } from '../../router/routes';
+import { mainRoutes, navbarRoutes } from '../../router/routes';
 import { AppContext } from '../../context/contextApp';
 import { LOCALES } from '../../constants/constants';
 import { TLocale } from '../../context/defaultContext';
@@ -25,23 +25,24 @@ const Navigation = () => {
     }
   }, []);
 
+  const handler = (index: number) => {
+    console.log('click');
+  };
+
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation">
       <List>
         <Box pt={1}>
-          {Object.values(dashBoardRoutes).map(({ title, path }, index) => (
-            <Box key={title} data-testid={`test_link_${title}`}>
-              <Button
-                // className={pathname === path ? classes.custom_link_clicked : classes.custom_link}
-                component={Link}
-                to={path}
-                // startIcon={<Icon color={pathname === path ? colors.blue : colors.blackBeauty} />}
-                onClick={() => toggleDrawer()}
-              >
-                {title}
-              </Button>
-            </Box>
-          ))}
+          {Object.values(navbarRoutes).map(
+            ({ title, path }, index) =>
+              title && (
+                <Box key={path + index} data-testid={`test_link_${title}`}>
+                  <Button component={Link} to={path} onClick={() => toggleDrawer()}>
+                    {title}
+                  </Button>
+                </Box>
+              )
+          )}
         </Box>
       </List>
     </Box>
@@ -68,20 +69,22 @@ const Navigation = () => {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', lg: 'flex' } }}>
             <Box pt={1} display="flex">
-              {Object.values(dashBoardRoutes).map(({ title, path }, index) => (
-                <Box key={title} data-testid={`test_link_${title}`}>
-                  <Button
-                    style={{ color: '#fff' }}
-                    // className={pathname === path ? classes.custom_link_clicked : classes.custom_link}
-                    component={Link}
-                    to={path}
-                    // startIcon={<Icon color={pathname === path ? colors.blue : colors.blackBeauty} />}
-                    // onClick={() => handler(index)}
-                  >
-                    <FormattedMessage id={`navigation.${title}`} />
-                  </Button>
-                </Box>
-              ))}
+              {Object.values(navbarRoutes).map(
+                ({ title, path }, index) =>
+                  title && (
+                    <Box key={path + index} data-testid={`test_link_${title}`}>
+                      <Button
+                        style={{ color: '#fff' }}
+                        component={Link}
+                        to={path}
+                        onClick={() => handler(index)}
+                      >
+                        {/*<FormattedMessage id={`navigation.${title}`} />*/}
+                        {title}
+                      </Button>
+                    </Box>
+                  )
+              )}
             </Box>
           </Box>
           <Box display="flex" alignItems="center">
@@ -104,7 +107,9 @@ const Navigation = () => {
             </Button>
           </Box>
 
-          <Button color="inherit">Login</Button>
+          <Button component={Link} to={mainRoutes.login.path} color="inherit">
+            Login
+          </Button>
         </Toolbar>
 
         <Drawer anchor={'left'} open={isDrawerOpen} onClose={() => toggleDrawer()}>

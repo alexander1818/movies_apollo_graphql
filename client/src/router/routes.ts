@@ -2,12 +2,28 @@ import Home from '../pages/home';
 import Settings from '../pages/settings';
 import Recommended from '../pages/recommended/Recommended';
 import MovieDetails from '../pages/movieDetails/MovieDetails';
+import { Login } from '../components/login/Login';
+import HomePage from '../pages/homePage/HomePage';
+import PopularMovies from '../pages/popularMovies/PopularMovies';
 
 export const mainRoutes = {
+  login: {
+    title: 'Login',
+    path: '/auth/login',
+    element: Login,
+  },
   home: {
     title: 'Home Page',
-    path: '/movie',
+    path: '/',
     element: Home,
+  },
+};
+
+export const navbarRoutes = {
+  home: {
+    title: 'Popular Movie',
+    path: '/movie',
+    element: PopularMovies,
   },
   settings: {
     title: 'Settings',
@@ -15,12 +31,12 @@ export const mainRoutes = {
     element: Settings,
   },
   recommended: {
-    title: 'Recommended',
+    title: null,
     path: '/movie/recommended',
     element: Recommended,
   },
   movieDetails: {
-    title: 'Movie details',
+    title: null,
     path: '/movie/:id',
     element: MovieDetails,
   },
@@ -30,7 +46,7 @@ export const dashBoardRoutes = {
   home: {
     title: 'Home Page',
     path: '/movie',
-    element: Home,
+    element: PopularMovies,
   },
   settings: {
     title: 'Settings',
@@ -39,7 +55,7 @@ export const dashBoardRoutes = {
   },
   recommended: {
     title: 'Recommended',
-    path: '/recommended',
+    path: '/movie/recommended',
     element: Recommended,
   },
 };

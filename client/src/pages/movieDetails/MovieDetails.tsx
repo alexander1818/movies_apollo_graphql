@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useQuery } from '@apollo/client';
-import { MOVIE_BY_ID_QUERY } from '../home/queries';
+import { MOVIE_BY_ID_QUERY } from '../../graphQL/queries/movieQuery/queries';
 
 import { useParams } from 'react-router-dom';
 

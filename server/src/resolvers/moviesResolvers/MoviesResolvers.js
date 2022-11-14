@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const {API_KEY} = require("../../config");
 const axios = require("axios");
 const {Movies} = require("../../modules/movies/entities/Movies");
-const { getMovieById } = require("../../modules/movies");
+const { getMoviesByIds} = require("../../modules/movies");
 const {MovieById} = require("../../modules/movies/entities/MovieById");
 
 const BASE_API_URL = 'https://api.themoviedb.org/3'
@@ -16,7 +16,6 @@ module.exports = {
 
     Query: {
         async popularMovies(_, args, { locale }) {
-            console.log('args', args, locale)
             const url = `${BASE_API_URL}/movie/popular?api_key=${API_KEY}&language=${locale}&page=${args.page}`;
             const result = await axios.get(url);
             return new Movies(result.data);
@@ -29,7 +28,7 @@ module.exports = {
         },
 
         async moviesByIds(parent, { ids }, { locale }) {
-            const request = ids.map((id) => getMovieById(id, locale));
+            const request = ids.map((id) => getMoviesByIds(id, locale));
             const data = await Promise.all(request)
             const movies = data.map(({data}) => new MovieById(data))
             return movies;

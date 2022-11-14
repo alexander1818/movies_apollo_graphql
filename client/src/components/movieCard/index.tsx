@@ -2,7 +2,7 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import { CardMenu } from '../MaterialUI/cardMenu/CardMenu';
 import { AddMovieIcon, CardMenuWrapper, CardTitle } from './styles';
-import { dashBoardRoutes, mainRoutes } from '../../router/routes';
+import { dashBoardRoutes, mainRoutes, navbarRoutes } from '../../router/routes';
 import MovieDetails from '../../pages/movieDetails/MovieDetails';
 import { Route, Routes } from 'react-router-dom';
 
@@ -59,7 +59,7 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect, isPreviewM
       </Box>
       <CardContent>
         <CardTitle
-          to={`${mainRoutes.home.path}/${movie.id}`}
+          to={`${navbarRoutes.home.path}/${movie.id}`}
           target={'_blank'}
 
           // onClick={() => handleAddMovie(movie)}

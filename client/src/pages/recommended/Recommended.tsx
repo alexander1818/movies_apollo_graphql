@@ -1,11 +1,14 @@
+import React from 'react';
+
 import { useQuery } from '@apollo/client';
-import { MOVIES_BY_IDS_QUERY } from '../home/queries';
+import { MOVIES_BY_IDS_QUERY } from '../../graphQL/queries/movieQuery/queries';
 import { useMovies } from '../../hooks/useMovies/useMovies';
-import { useLocation, useParams, useSearchParams } from 'react-router-dom';
+
+import { useSearchParams } from 'react-router-dom';
+
 import { Box, Grid, Paper, Typography } from '@mui/material';
 import Loader from '../../components/MaterialUI/loader/Loader';
 import MovieCard, { TMovieType } from '../../components/movieCard';
-import React from 'react';
 
 const Recommended = () => {
   const { selectMovie } = useMovies();
