@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Box, Grid } from '@mui/material';
 import { useQuery } from '@apollo/client';
-import { SIMAILAR_MOVIES_QUERY } from '../home/queries';
+import { SIMAILAR_MOVIES_QUERY } from '../../graphQL/queries/movieQuery/queries';
 import Loader from '../../components/MaterialUI/loader/Loader';
 import MovieCard, { TMovieType } from '../../components/movieCard';
 import { useMovies } from '../../hooks/useMovies/useMovies';

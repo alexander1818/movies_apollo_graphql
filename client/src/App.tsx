@@ -19,14 +19,21 @@ import { AppContext } from './context/contextApp';
 import { TDefaultContext } from './context/defaultContext';
 
 import { Container, CssBaseline } from '@mui/material';
-import Navigation from './components/navigation';
-
-import { ContainerWrapper } from './styles';
 
 import Provider from './i18n/i18n';
+import { setContext } from '@apollo/client/link/context';
 
 function App() {
   const { locale }: TDefaultContext = useContext(AppContext);
+
+  // const authLink = setContext((_, { header }) => {
+  //   return {
+  //     headers: {
+  //       ...headers,
+  //       authorization: localStorage.getItem('token') || '',
+  //     },
+  //   };
+  // });
 
   const httpLink = new HttpLink({ uri: 'http://localhost:5000/' });
   const localeMiddleware = new ApolloLink((operation, forward) => {
@@ -54,23 +61,20 @@ function App() {
       <ApolloProvider client={client}>
         <BrowserRouter>
           <CssBaseline />
-          <Navigation />
-          <ContainerWrapper>
-            <Container maxWidth="xl">
-              <InternalRouter />
-              <ToastContainer
-                position="bottom-right"
-                autoClose={4000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-              />
-            </Container>
-          </ContainerWrapper>
+          <Container maxWidth="xl">
+            <InternalRouter />
+            <ToastContainer
+              position="bottom-right"
+              autoClose={4000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+            />
+          </Container>
         </BrowserRouter>
       </ApolloProvider>
     </Provider>
