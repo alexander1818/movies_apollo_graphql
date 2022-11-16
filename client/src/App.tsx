@@ -61,20 +61,18 @@ function App() {
       <ApolloProvider client={client}>
         <BrowserRouter>
           <CssBaseline />
-          <Container maxWidth="xl">
-            <InternalRouter />
-            <ToastContainer
-              position="bottom-right"
-              autoClose={4000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-            />
-          </Container>
+          <InternalRouter />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </BrowserRouter>
       </ApolloProvider>
     </Provider>

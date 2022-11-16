@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from 'react';
 
 import { AppBar, Box, Button, IconButton, Toolbar, Drawer, List, Hidden } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from 'react-router-dom';
 import { mainRoutes, navbarRoutes } from '../../router/routes';
 import { AppContext } from '../../context/contextApp';
@@ -10,8 +10,11 @@ import { LOCALES } from '../../constants/constants';
 import { TLocale } from '../../context/defaultContext';
 
 import { FormattedMessage } from 'react-intl';
+import { useAppDispatch } from '../../hooks/redux';
+import { logOut } from '../../store/slices/authSlice/authSlice';
 
 const Navigation = () => {
+  const appDispatch = useAppDispatch();
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
 
   const toggleDrawer = () => {
@@ -26,7 +29,7 @@ const Navigation = () => {
   }, []);
 
   const handler = (index: number) => {
-    console.log('click');
+    // console.log('click');
   };
 
   const list = () => (
@@ -107,8 +110,13 @@ const Navigation = () => {
             </Button>
           </Box>
 
-          <Button component={Link} to={mainRoutes.login.path} color="inherit">
-            Login
+          <Button
+            component={Link}
+            to={mainRoutes.login.path}
+            color="inherit"
+            onClick={() => appDispatch(logOut())}
+          >
+            <LogoutIcon />
           </Button>
         </Toolbar>
 

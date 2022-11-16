@@ -59,7 +59,7 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect, isPreviewM
       </Box>
       <CardContent>
         <CardTitle
-          to={`${navbarRoutes.home.path}/${movie.id}`}
+          to={`${navbarRoutes.popularMovies.path}/${movie.id}`}
           target={'_blank'}
 
           // onClick={() => handleAddMovie(movie)}
