@@ -1,16 +1,22 @@
 import Home from '../pages/home';
+import HomePage from '../pages/home/Home';
 import Settings from '../pages/settings';
 import Recommended from '../pages/recommended/Recommended';
 import MovieDetails from '../pages/movieDetails/MovieDetails';
-import { Login } from '../components/login/Login';
-import HomePage from '../pages/homePage/HomePage';
+import { Login } from '../components/auth/login/Login';
 import PopularMovies from '../pages/popularMovies/PopularMovies';
+import { SignIn } from '../components/auth/signIn/SignIn';
 
 export const mainRoutes = {
   login: {
     title: 'Login',
     path: '/auth/login',
     element: Login,
+  },
+  signIn: {
+    title: 'Sign In',
+    path: '/auth/signIn',
+    element: SignIn,
   },
   home: {
     title: 'Home Page',
@@ -20,7 +26,12 @@ export const mainRoutes = {
 };
 
 export const navbarRoutes = {
-  home: {
+  homePage: {
+    title: 'Home',
+    path: '/',
+    element: HomePage,
+  },
+  popularMovies: {
     title: 'Popular Movie',
     path: '/movie',
     element: PopularMovies,

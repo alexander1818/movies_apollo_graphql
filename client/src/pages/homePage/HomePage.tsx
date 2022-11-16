@@ -1,5 +1,5 @@
 import Navigation from '../../components/navigation';
-import { Login } from '../../components/login/Login';
+import { Login } from '../../components/auth/login/Login';
 
 const HomePage = () => {
   return (

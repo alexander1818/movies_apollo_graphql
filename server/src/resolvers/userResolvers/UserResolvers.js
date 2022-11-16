@@ -51,7 +51,7 @@ module.exports = {
                     ...user._doc
                 }
             } else {
-                throw new ApolloError("Incorrect password", "INCORRECT_PASSWORD")
+                throw new ApolloError("Incorrect password or email", "INCORRECT_PASSWORD")
             }
         }
     },

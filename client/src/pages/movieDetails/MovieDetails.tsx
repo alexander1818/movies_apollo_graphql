@@ -69,7 +69,7 @@ const MovieDetails = () => {
   const movie: TMovieByID = data && data?.getMovieById;
 
   return (
-    <>
+    <Box mt={1}>
       {loading && <Loader />}
       {data && (
         <Grid container display="flex" justifyContent="space-between" spacing={1}>
@@ -134,7 +134,7 @@ const MovieDetails = () => {
       <Box style={{ overflow: 'auto', height: 500 }}>
         <SimilarMovies id={idInt} />
       </Box>
-    </>
+    </Box>
   );
 };
 
