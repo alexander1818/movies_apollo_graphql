@@ -6,7 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import { useQuery } from '@apollo/client';
 
-import MovieCard, { TMovieType } from '../../components/movieCard';
+import { TMovieType } from '../../components/movieCard';
 import MovieCardSelected from '../../components/movieCardSelected';
 import SelectedMovieForm, {
   TFormValues,
@@ -16,16 +16,17 @@ import Loader from '../../components/MaterialUI/loader/Loader';
 import { SocialShare } from '../../components/socialShare/SocialShare';
 
 import { AppContext } from '../../context/contextApp';
-import { dashBoardRoutes, mainRoutes } from '../../router/routes';
+import { dashBoardRoutes } from '../../router/routes';
 
 import { useMovies } from '../../hooks/useMovies/useMovies';
 
-import { Box, Button, Grid, Pagination, Paper, TextField, Typography } from '@mui/material';
+import { Box, Button, Grid, Pagination, Paper, Typography } from '@mui/material';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 
 import { SeletctedMovie, StickyBox } from './styles';
 
 import { MOVIES_QUERY } from '../../graphQL/queries/movieQuery/queries';
+import PopularMoviesList from './PopularMoviesList';
 
 const Home = () => {
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
@@ -59,7 +60,12 @@ const Home = () => {
   };
 
   if (error) {
-    return 'Error';
+    return (
+      <>
+        <Typography variant="h3">Error</Typography>
+        {toast.dark('Something went wrong')}
+      </>
+    );
   }
 
   return (
@@ -73,19 +79,18 @@ const Home = () => {
             <Paper>
               <Grid container spacing={2} p={2}>
                 {loading && <Loader />}
-                {data?.popularMovies.results.map((movie: TMovieType, index: number) => {
-                  return (
-                    <Grid key={index} item xs={6} md={4} lg={3}>
-                      <MovieCard movie={movie} onCardSelect={selectMovie} />
-                    </Grid>
-                  );
-                })}
+                {data && (
+                  <PopularMoviesList
+                    movies={data.popularMovies.results}
+                    selectMovie={selectMovie}
+                  />
+                )}
               </Grid>
             </Paper>
           </Box>
           <Box mt={2} pb={2} sx={{ display: 'flex', justifyContent: 'center' }}>
             <Pagination
-              count={data?.movies?.totalPages}
+              count={data?.popularMovies.totalPages}
               page={page}
               onChange={paginationHandler}
               color="secondary"
