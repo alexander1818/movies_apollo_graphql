@@ -18,7 +18,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AppContext } from './context/contextApp';
 import { TDefaultContext } from './context/defaultContext';
 
-import { Container, CssBaseline } from '@mui/material';
+import { CssBaseline } from '@mui/material';
 
 import Provider from './i18n/i18n';
 import { setContext } from '@apollo/client/link/context';
