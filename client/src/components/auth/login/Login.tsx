@@ -43,7 +43,7 @@ export const Login = () => {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  console.log(user);
+
   const onSubmitHandler = () => {
     loginUser({
       variables: {
