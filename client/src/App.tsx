@@ -35,6 +35,11 @@ function App() {
   //   };
   // });
 
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+  const authorizationHeaders = { Authorization: `${localStorage.getItem('token')}` };
+
   const httpLink = new HttpLink({ uri: 'http://localhost:5000/' });
   const localeMiddleware = new ApolloLink((operation, forward) => {
     // eslint-disable-next-line no-prototype-builtins
@@ -43,7 +48,9 @@ function App() {
       : {};
     operation.setContext({
       headers: {
+        ...authorizationHeaders,
         ...customHeaders,
+        ...headers,
         locale,
       },
     });
