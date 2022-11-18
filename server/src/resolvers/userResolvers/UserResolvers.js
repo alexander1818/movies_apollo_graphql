@@ -23,7 +23,7 @@ module.exports = {
             const token = jwt.sign(
                 {user_id: newUser._id, email},
                 "UNSAFE_STRING",
-                {expiresIn: "2h"},
+                {expiresIn: "1m"},
             )
 
             newUser.token = token;
@@ -39,10 +39,11 @@ module.exports = {
             const user = await User.findOne({email});
 
             if(user && (await bcrypt.compare(password, user.password))) {
+
                 const token = jwt.sign(
-                    {user_id: user._id, email},
+                    {...user},
                     "UNSAFE_STRING",
-                    {expiresIn: "2h"});
+                    {expiresIn: "1m"});
 
                 user.token = token;
 
