@@ -1,14 +1,12 @@
 require('dotenv/config');
-const fs = require('fs');
-const path = require('path');
 const mongoose = require('mongoose');
-const cookieParser = require('cookie-parser');
-const { ApolloServer } = require('apollo-server');
+const { ApolloServer} = require('apollo-server');
 
 const userResolvers = require('./resolvers/index')
 const {Query, Mutation} = userResolvers;
 
 const typeDefs = require('./typeDefs/main/index')
+const {findOrCreateUser} = require("./controllers/userController");
 
 const PORT = process.env.PORT || 4000;
 
@@ -16,16 +14,6 @@ const resolvers = {
     Query,
     Mutation
 }
-
-const context = ({ req, res }) => ({
-    locale: req?.headers?.locale || 'en-US'
-})
-
-const server = new ApolloServer({
-    typeDefs,
-    resolvers,
-    context,
-})
 
 mongoose
     .connect(process.env.MONGODB_URL, { useNewUrlParser: true })
@@ -39,3 +27,32 @@ mongoose
     .catch(err => {
         console.error(err)
     })
+
+const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    cors: {
+        origin: "http://localhost:3000",
+        credentials: true,
+    },
+
+    context: async ({ req, res }) => {
+        let authToken = null
+        let currentUser = null
+        try {
+            authToken = req.headers.authorization.split('Bearer')[1].trim();
+            currentUser = await findOrCreateUser(authToken, req)
+
+            return currentUser;
+        } catch (err) {
+            //Need to fix Authentication
+            // throw new AuthenticationError(`Unable to authenticate user with token ${authToken}`)
+            return ({req, res})
+        }
+        return currentUser;
+    },
+})
+
+
+
+
