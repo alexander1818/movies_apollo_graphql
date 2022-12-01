@@ -1,4 +1,9 @@
 import React, { useState } from 'react';
+import { CredentialResponse, GoogleLogin } from '@react-oauth/google';
+
+import { GraphQLClient } from 'graphql-request';
+import { useMutation } from '@apollo/client';
+import { GraphQLError } from 'graphql/error';
 
 import { Link } from 'react-router-dom';
 
@@ -14,11 +19,10 @@ import { LoginWrapper, SubmitLogin } from '../styles';
 
 import { mainRoutes } from '../../../router/routes';
 
-import { useMutation } from '@apollo/client';
-import { GraphQLError } from 'graphql/error';
-import { LOGIN_USER } from '../../../graphQL/mutations/auth/login';
-
 import { toast } from 'react-toastify';
+
+import { LOGIN_USER } from '../../../graphQL/mutations/auth/login';
+import { GOOGLE_LOGIN_USER } from '../../../graphQL/queries/googleAuth/googleAuth';
 
 type TLogin = {
   email: string;
@@ -36,6 +40,24 @@ export const Login = () => {
   const [user, setUser] = useState<TLogin>({ email: '', password: '' });
   const [showPassword, setShowPassword] = React.useState(false);
 
+  const onSuccess = async (tokenResponse: CredentialResponse) => {
+    try {
+      const idToken = await tokenResponse.credential;
+      const authorizationHeaders = {
+        authorization: `Bearer ${idToken}`,
+      };
+
+      const client = new GraphQLClient('http://localhost:5000/', {
+        headers: { ...authorizationHeaders },
+      });
+
+      const { googleLoginUser } = await client.request(GOOGLE_LOGIN_USER);
+      dispatch(setUserData({ ...googleLoginUser }));
+    } catch (err) {
+      console.log('ERR ==>', err);
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
@@ -51,7 +73,7 @@ export const Login = () => {
       },
     })
       .then(({ data }) => {
-        dispatch(setUserData(data));
+        dispatch(setUserData({ ...data.loginUser }));
       })
       .catch((err) => console.log('ERROR', err));
     setUser({ email: '', password: '' });
@@ -97,12 +119,22 @@ export const Login = () => {
           }}
         />
         <Box mb={2} display="flex" justifyContent="space-between" alignItems={'center'}>
-          <Link style={{ textDecoration: 'none', color: '#ffff' }} to={mainRoutes.signIn.path}>
-            Sign in
+          <Link style={{ textDecoration: 'none', color: '#ffff' }} to={mainRoutes.signUp.path}>
+            Sign up
           </Link>
           <SubmitLogin variant="outlined" onClick={() => onSubmitHandler()}>
             Login
           </SubmitLogin>
+        </Box>
+        <Box>
+          <GoogleLogin
+            onSuccess={(credentialResponse) => {
+              onSuccess(credentialResponse);
+            }}
+            onError={() => {
+              console.log('Login Failed');
+            }}
+          />
         </Box>
       </Box>
     </LoginWrapper>

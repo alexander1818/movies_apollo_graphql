@@ -6,6 +6,7 @@ export const REGISTER_USER = gql`
       username
       email
       token
+      refreshToken
     }
   }
 `;

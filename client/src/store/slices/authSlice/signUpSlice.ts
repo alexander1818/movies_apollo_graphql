@@ -2,30 +2,30 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../store';
 import { mainRoutes, navbarRoutes } from '../../../router/routes';
 
-type TSignInUser = {
+type TSignUpUser = {
   username: string;
   user: string;
   token: string;
 };
 
-const initialState: TSignInUser = {
+const initialState: TSignUpUser = {
   username: '',
   user: '',
   token: '',
 };
 
-export const signIn = createSlice({
-  name: 'signIn',
+export const signUp = createSlice({
+  name: 'signUp',
   initialState,
   reducers: {
     registerNewUser(state) {
-      // window.location.href = mainRoutes.login.path;
+      window.location.href = mainRoutes.login.path;
     },
   },
 });
 
-export const selectSignIn = (state: RootState): TSignInUser => state.signIn;
+export const selectSignUp = (state: RootState): TSignUpUser => state.signUp;
 
-export default signIn.reducer;
+export default signUp.reducer;
 
-export const { registerNewUser } = signIn.actions;
+export const { registerNewUser } = signUp.actions;

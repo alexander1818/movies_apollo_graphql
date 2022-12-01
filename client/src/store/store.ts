@@ -1,6 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import signUpReducer from './slices/authSlice/authSlice';
-import signInReducer from './slices/authSlice/signInSlice';
+import signInReducer from './slices/authSlice/authSlice';
+import signUpReducer from './slices/authSlice/signUpSlice';
 
 export const store = configureStore({
   reducer: {

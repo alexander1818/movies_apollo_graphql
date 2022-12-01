@@ -5,7 +5,7 @@ import Recommended from '../pages/recommended/Recommended';
 import MovieDetails from '../pages/movieDetails/MovieDetails';
 import { Login } from '../components/auth/login/Login';
 import PopularMovies from '../pages/popularMovies/PopularMovies';
-import { SignIn } from '../components/auth/signIn/SignIn';
+import { SignUp } from '../components/auth/signUp/SignUp';
 
 export const mainRoutes = {
   login: {
@@ -13,10 +13,10 @@ export const mainRoutes = {
     path: '/auth/login',
     element: Login,
   },
-  signIn: {
+  signUp: {
     title: 'Sign In',
-    path: '/auth/signIn',
-    element: SignIn,
+    path: '/auth/signUp',
+    element: SignUp,
   },
   home: {
     title: 'Home Page',
