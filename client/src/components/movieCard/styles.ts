@@ -1,5 +1,6 @@
 import { Box, styled } from '@mui/material';
 import PlaylistAddIcon from '@mui/icons-material/PlaylistAdd';
+import { Link, NavLink } from 'react-router-dom';
 
 export const CardMenuWrapper = styled(Box)(({ theme }) => ({
   position: 'absolute',
@@ -26,9 +27,17 @@ export const AddMovieIcon = styled(PlaylistAddIcon)(({ theme }) => ({
   cursor: 'pointer',
 }));
 
-export const CardTitle = styled(Box)(({ theme }) => ({
+export const CardTitle = styled(NavLink)(({ theme }) => ({
   display: '-webkit-box',
   overflow: 'hidden',
   WebkitLineClamp: 1,
   WebkitBoxOrient: 'vertical',
+  fontWeight: 600,
+  color: '#545454',
+  transition: '0.3s ease',
+  cursor: 'pointer',
+  textDecoration: 'none',
+  '&:hover': {
+    color: '#878787',
+  },
 }));

@@ -1,18 +1,28 @@
-import { Box, Divider, IconButton, InputBase, Paper } from '@mui/material';
-import CheckIcon from '@mui/icons-material/Check';
-import { Form, Field } from 'react-final-form';
 import { FC } from 'react';
 
+import { Form, Field } from 'react-final-form';
+
+import { Divider, IconButton, InputBase, Paper } from '@mui/material';
+import CheckIcon from '@mui/icons-material/Check';
+
 type TSelectedMoviesForm = {
-  onSubmit: (e: any) => void;
+  onSubmit: (selectedMoviesField: TFormValues) => void;
+};
+
+export type TFormValues = {
+  selectedMoviesField: string;
+};
+
+type TFormErrors = {
+  selectedMoviesField?: string;
 };
 
 const SelectedMovieForm: FC<TSelectedMoviesForm> = ({ onSubmit }) => {
   return (
     <Form
       onSubmit={onSubmit}
-      validate={(values) => {
-        const errors: any = {};
+      validate={(values: TFormValues) => {
+        const errors: TFormErrors = {};
         if (!values.selectedMoviesField) {
           errors.selectedMoviesField = 'Required';
         }

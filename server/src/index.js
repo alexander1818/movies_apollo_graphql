@@ -1,28 +1,58 @@
-const fs = require('fs');
-const path = require('path');
-const { ApolloServer } = require('apollo-server');
+require('dotenv/config');
+const mongoose = require('mongoose');
+const { ApolloServer} = require('apollo-server');
 
-const Query = require('./resolvers/Query')
+const userResolvers = require('./resolvers/index')
+const {Query, Mutation} = userResolvers;
+
+const typeDefs = require('./typeDefs/main/index')
+const {findOrCreateUser} = require("./controllers/userController");
+
+const PORT = process.env.PORT || 4000;
 
 const resolvers = {
-    Query
+    Query,
+    Mutation
 }
 
-const context = ({ req, res }) => ({
-    locale: req?.headers?.locale || 'en-US'
-})
+mongoose
+    .connect(process.env.MONGODB_URL, { useNewUrlParser: true })
+    .then(() => {
+        console.log('MongoDB Connected');
+        return server.listen({ port: PORT });
+    })
+    .then((res) => {
+        console.log(`Server running at ${res.url}`);
+    })
+    .catch(err => {
+        console.error(err)
+    })
 
 const server = new ApolloServer({
-    typeDefs: fs.readFileSync(
-        path.join(__dirname, 'schema.graphql'),
-        'utf8'
-    ),
+    typeDefs,
     resolvers,
-    context
+    cors: {
+        origin: "http://localhost:3000",
+        credentials: true,
+    },
+
+    context: async ({ req, res }) => {
+        let authToken = null
+        let currentUser = null
+        try {
+            authToken = req.headers.authorization.split('Bearer')[1].trim();
+            currentUser = await findOrCreateUser(authToken, req)
+
+            return currentUser;
+        } catch (err) {
+            //Need to fix Authentication
+            // throw new AuthenticationError(`Unable to authenticate user with token ${authToken}`)
+            return ({req, res})
+        }
+        return currentUser;
+    },
 })
 
-server
-    .listen()
-    .then(({ url }) =>
-        console.log(`Server is running on ${url}`)
-    );
+
+
+

@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+
 import { BrowserRouter } from 'react-router-dom';
 import InternalRouter from './router/Router';
 
@@ -17,17 +18,22 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AppContext } from './context/contextApp';
 import { TDefaultContext } from './context/defaultContext';
 
-import { Container, CssBaseline } from '@mui/material';
-import Navigation from './components/navigation';
-
-import { ContainerWrapper } from './styles';
+import { CssBaseline } from '@mui/material';
 
 import Provider from './i18n/i18n';
 
 function App() {
   const { locale }: TDefaultContext = useContext(AppContext);
 
-  const httpLink = new HttpLink({ uri: 'http://localhost:4000/' });
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  const authorizationHeaders = {
+    authorization: `Bearer ${localStorage.getItem('token')}` || '',
+  };
+
+  const httpLink = new HttpLink({ uri: 'http://localhost:5000/' });
   const localeMiddleware = new ApolloLink((operation, forward) => {
     // eslint-disable-next-line no-prototype-builtins
     const customHeaders = operation.getContext().hasOwnProperty('headers')
@@ -35,7 +41,9 @@ function App() {
       : {};
     operation.setContext({
       headers: {
+        ...authorizationHeaders,
         ...customHeaders,
+        ...headers,
         locale,
       },
     });
@@ -53,23 +61,18 @@ function App() {
       <ApolloProvider client={client}>
         <BrowserRouter>
           <CssBaseline />
-          <Navigation />
-          <ContainerWrapper>
-            <Container maxWidth="xl">
-              <InternalRouter />
-              <ToastContainer
-                position="bottom-right"
-                autoClose={4000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-              />
-            </Container>
-          </ContainerWrapper>
+          <InternalRouter />
+          <ToastContainer
+            position="bottom-right"
+            autoClose={4000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </BrowserRouter>
       </ApolloProvider>
     </Provider>

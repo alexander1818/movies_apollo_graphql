@@ -2,12 +2,16 @@ import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import { CardMenu } from '../MaterialUI/cardMenu/CardMenu';
 import { AddMovieIcon, CardMenuWrapper, CardTitle } from './styles';
+import { dashBoardRoutes, mainRoutes, navbarRoutes } from '../../router/routes';
+import MovieDetails from '../../pages/movieDetails/MovieDetails';
+import { Route, Routes } from 'react-router-dom';
 
 export type TMovieType = {
   id: number;
   posterPath: string;
   title: string;
   description: string;
+  genre_ids?: [number];
   releaseDate?: string;
 };
 
@@ -40,7 +44,13 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect, isPreviewM
       {/*/>*/}
 
       <Box sx={{ position: 'relative' }}>
-        <CardMedia component="img" height="350" image={movie.posterPath} alt={movie.title} />
+        <CardMedia
+          component="img"
+          height="350"
+          // sx={{ height: '-webkit-fill-available' }}
+          image={movie.posterPath}
+          alt={movie.title}
+        />
         {!isPreviewMode && (
           <CardMenuWrapper>
             <AddMovieIcon onClick={() => handleAddMovie(movie)} />
@@ -48,7 +58,14 @@ export const MovieCard: FC<TMovieTypeProps> = ({ movie, onCardSelect, isPreviewM
         )}
       </Box>
       <CardContent>
-        <CardTitle>{movie.title}</CardTitle>
+        <CardTitle
+          to={`${navbarRoutes.popularMovies.path}/${movie.id}`}
+          target={'_blank'}
+
+          // onClick={() => handleAddMovie(movie)}
+        >
+          {movie.title}
+        </CardTitle>
         <Typography variant="body1" color="text.secondary">
           {movie.description}
         </Typography>

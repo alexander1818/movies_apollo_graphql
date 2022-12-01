@@ -1,12 +1,40 @@
 import Home from '../pages/home';
+import HomePage from '../pages/home/Home';
 import Settings from '../pages/settings';
 import Recommended from '../pages/recommended/Recommended';
+import MovieDetails from '../pages/movieDetails/MovieDetails';
+import { Login } from '../components/auth/login/Login';
+import PopularMovies from '../pages/popularMovies/PopularMovies';
+import { SignUp } from '../components/auth/signUp/SignUp';
 
 export const mainRoutes = {
+  login: {
+    title: 'Login',
+    path: '/auth/login',
+    element: Login,
+  },
+  signUp: {
+    title: 'Sign In',
+    path: '/auth/signUp',
+    element: SignUp,
+  },
   home: {
     title: 'Home Page',
     path: '/',
     element: Home,
+  },
+};
+
+export const navbarRoutes = {
+  homePage: {
+    title: 'Home',
+    path: '/',
+    element: HomePage,
+  },
+  popularMovies: {
+    title: 'Popular Movie',
+    path: '/movie',
+    element: PopularMovies,
   },
   settings: {
     title: 'Settings',
@@ -14,17 +42,22 @@ export const mainRoutes = {
     element: Settings,
   },
   recommended: {
-    title: 'Recommended',
-    path: '/recommended',
+    title: null,
+    path: '/movie/recommended',
     element: Recommended,
+  },
+  movieDetails: {
+    title: null,
+    path: '/movie/:id',
+    element: MovieDetails,
   },
 };
 
 export const dashBoardRoutes = {
   home: {
     title: 'Home Page',
-    path: '/',
-    element: Home,
+    path: '/movie',
+    element: PopularMovies,
   },
   settings: {
     title: 'Settings',
@@ -33,7 +66,7 @@ export const dashBoardRoutes = {
   },
   recommended: {
     title: 'Recommended',
-    path: '/recommended',
+    path: '/movie/recommended',
     element: Recommended,
   },
 };
