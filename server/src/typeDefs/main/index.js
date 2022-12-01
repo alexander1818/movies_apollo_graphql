@@ -10,6 +10,8 @@ module.exports = gql`
         allUsers: [User]
         popularMovies(page: Int): Movies
 #        newUser(input: UserInput): User
+        me: NewUser
+        googleLoginUser: GoogleUser
     }
 
     type Movies {
@@ -94,6 +96,23 @@ module.exports = gql`
         email: String
         password: String
         token: String
+        refreshToken: String
+    }
+
+    type GoogleUser {
+        username: String
+        email: String
+#        password: String
+        token: String
+        refreshToken: String
+    }
+
+    input GoogleUserInput {
+        username: String
+        email: String
+#        password: String
+        token: String
+#        refreshToken: String
     }
 
     input RegisterInput {
@@ -108,14 +127,7 @@ module.exports = gql`
         password: String
     }
 
-    input UserInput {
-        id: ID
-        userName: String!
-        age: String!
-    }
-
     type Mutation {
-        newUser(input: UserInput): User
         registerUser(registerInput: RegisterInput): NewUser
         loginUser(loginInput: LoginInput): NewUser
     }

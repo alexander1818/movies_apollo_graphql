@@ -8,7 +8,7 @@ import { LoginWrapper, SubmitLogin } from '../styles';
 
 import { mainRoutes } from '../../../router/routes';
 
-import { registerNewUser } from '../../../store/slices/authSlice/signInSlice';
+import { registerNewUser } from '../../../store/slices/authSlice/signUpSlice';
 import { useAppDispatch } from '../../../hooks/redux';
 
 import Loader from '../../MaterialUI/loader/Loader';
@@ -26,7 +26,7 @@ type TSignIn = {
   confirmPassword: string;
 };
 
-export const SignIn = () => {
+export const SignUp = () => {
   const dispatch = useAppDispatch();
 
   const [showPassword, setShowPassword] = React.useState(false);

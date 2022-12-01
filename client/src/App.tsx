@@ -21,24 +21,17 @@ import { TDefaultContext } from './context/defaultContext';
 import { CssBaseline } from '@mui/material';
 
 import Provider from './i18n/i18n';
-import { setContext } from '@apollo/client/link/context';
 
 function App() {
   const { locale }: TDefaultContext = useContext(AppContext);
 
-  // const authLink = setContext((_, { header }) => {
-  //   return {
-  //     headers: {
-  //       ...headers,
-  //       authorization: localStorage.getItem('token') || '',
-  //     },
-  //   };
-  // });
-
   const headers = {
     'Content-Type': 'application/json',
   };
-  const authorizationHeaders = { Authorization: `${localStorage.getItem('token')}` };
+
+  const authorizationHeaders = {
+    authorization: `Bearer ${localStorage.getItem('token')}` || '',
+  };
 
   const httpLink = new HttpLink({ uri: 'http://localhost:5000/' });
   const localeMiddleware = new ApolloLink((operation, forward) => {
