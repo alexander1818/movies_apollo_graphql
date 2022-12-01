@@ -4,6 +4,6 @@
 2. cd server > npm install;
 3. server: npm run server; 
 4. client: npm start;
-5?. storybook > npm run storybook;
+5. storybook > npm run storybook;
 
 
